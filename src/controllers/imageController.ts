@@ -19,10 +19,12 @@ class ImageController {
     }
   }
 
-  async getFiles(req: any, res: any) {
+  async getRandomImage(req: any, res: any) {
     try {
-      const image = await Image.find();
-      return res.json(image);
+      const randonImage = await Image.find()
+      const urls = randonImage.map(image => image.url);
+      const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+      return res.json({ url: randomUrl });
     } catch {
       return res.json({ message: "No se pudo encontrar alguna imagen" });
     }
