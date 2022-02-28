@@ -1,0 +1,27 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "jd-apprentice",
+      "name": "Jonathan Dyallo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68082746?v=4",
+      "profile": "https://portfolio-jd.vercel.app/",
+      "contributions": [
+        "code",
+        "test",
+        "doc",
+        "maintenance"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "waifuland-api",
+  "projectOwner": "jd-apprentice",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
