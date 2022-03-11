@@ -14,6 +14,7 @@
 ## 🚧 Routes
 
 - ```GET``` Grab a random image ```api/images```
+- ```GET``` Grab an array of random images ```api/images?size=<Size>```
 
 ## 📖 Status
 
