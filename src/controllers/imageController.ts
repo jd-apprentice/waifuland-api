@@ -1,3 +1,4 @@
+import randomUrls from "../utils/random";
 import Image from "../models/image";
 import ImageService from "../services/imageService";
 import clearTemporaryFiles from "../utils/clear";
@@ -21,10 +22,13 @@ class ImageController {
 
   async getRandomImage(req: any, res: any) {
     try {
-      const randonImage = await Image.find()
-      const urls = randonImage.map(image => image.url);
+      const { size } = req.query;
+      const getImages = await Image.find()
+      const urls = getImages.map(image => image.url);
+      const randomArray = (urls.sort(randomUrls))
+      const sizeArray = randomArray.slice(0, size);
       const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-      return res.json({ url: randomUrl });
+      return res.json( size === undefined || null ? { url: randomUrl } : { urls: sizeArray } );
     } catch {
       return res.json({ message: "No se pudo encontrar alguna imagen" });
     }
