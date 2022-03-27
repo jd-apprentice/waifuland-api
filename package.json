@@ -10,6 +10,7 @@
     "start": "node ."
   },
   "dependencies": {
+    "@hapi/boom": "^9.1.4",
     "bcrypt": "^5.0.1",
     "cloudinary": "^1.28.1",
     "cors": "^2.8.5",
