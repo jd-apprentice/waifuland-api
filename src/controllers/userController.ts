@@ -1,22 +1,24 @@
 import User from "../models/user";
-import bcrypt from 'bcrypt';
-
+import bcrypt from "bcrypt";
+import { Request, Response } from "express";
 class UserController {
-  async register(req: any, res: any) {
-    const user = new User({
-      username: req.body.username,
-      password: bcrypt.hashSync(req.body.password, 10),
+  async createUser(req: Request, res: Response) {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+    if (user) {
+      throw new Error("User already exists");
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({
+      username,
+      password: hashedPassword,
     });
-    console.log(user)
-    res.json({ message: user });
+    await newUser.save(); // Saving the user in the database
+    res.json({ message: "User created succesfully" });
   }
 
-  async login(req: any, res: any) {
-    const user = {
-      username: req.body.username,
-      password: req.body.password
-    }
-    res.json({ message: user })
+  async validateUser(req: any, res: any) {
+    res.json({ message: "User validated succesfully" });
   }
 }
 
