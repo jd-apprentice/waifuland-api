@@ -1,8 +1,9 @@
 const cloudinary = require("cloudinary").v2;
+import { Config } from "src/models/interfaces/cloudinary";
 import { setConfig, setCloudinary } from "../config/cloud";
 
 class ImageService {
-  config: any;
+  config: Config;
   storage: any;
 
   constructor() {

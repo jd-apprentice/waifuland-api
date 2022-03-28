@@ -2,13 +2,15 @@ import randomUrls from "../utils/random";
 import Image from "../models/image";
 import ImageService from "../services/imageService";
 import clearTemporaryFiles from "../utils/clear";
+import { Request, Response } from "express";
 
 class ImageController {
-  async uploadFile(req: any, res: any) {
+  async uploadFile(req: Request, res: Response) {
     try {
       const { file } = req;
-      const response = await ImageService.cloudinaryUpload(file.path);
-      clearTemporaryFiles(file.path);
+      const response = await ImageService.cloudinaryUpload(file?.path);
+      // @ts-ignore
+      clearTemporaryFiles(file?.path);
       const image = new Image({
         public_id: response.public_id,
         url: response.secure_url,
@@ -20,9 +22,9 @@ class ImageController {
     }
   }
 
-  async getRandomImage(req: any, res: any) {
+  async getRandomImage(req: Request, res: Response) {
     try {
-      const { size } = req.query;
+      const { size }: any = req.query;
       const getImages = await Image.find()
       const urls = getImages.map(image => image.url);
       const randomArray = (urls.sort(randomUrls))
