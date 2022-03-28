@@ -1,6 +1,6 @@
-import { unlink } from "fs";
+import { PathLike, unlink } from "fs";
 
-const clearTemporaryFiles = (filepath: any) => {
+const clearTemporaryFiles = (filepath: PathLike) => {
     unlink(filepath, (err: any) => {
         if (err) throw err;
     });
