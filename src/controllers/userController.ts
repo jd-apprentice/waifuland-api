@@ -22,6 +22,10 @@ class UserController {
   async validateUser(req: Request, res: Response) {
     return res.json({ message: "User validated succesfully" });
   }
+
+  async validateToken(req: Request, res: Response) {
+    return res.json({ message: "Token validated succesfully" });
+  }
 }
 
 export default new UserController();
