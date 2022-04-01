@@ -6,7 +6,6 @@ import generateAccessToken from "../services/generateToken";
 class UserController {
   async createUser(req: Request, res: Response) {
     const { username, password } = req.body;
-    const token = generateAccessToken(username);
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
       username,
@@ -15,16 +14,15 @@ class UserController {
     await newUser.save(); // Saving the user in the database
     return res.json({
       user: username,
-      token: token,
     });
   }
 
-  async validateUser(req: Request, res: Response) {
-    return res.json({ message: "User validated succesfully" });
-  }
-
-  async validateToken(req: Request, res: Response) {
-    return res.json({ message: "Token validated succesfully" });
+  async login(req: Request, res: Response) {
+    const { username } = req.body;
+    const token = generateAccessToken(username);
+    return res
+      .setHeader("Authorization", `Bearer ${token}`)
+      .json({ token: token });
   }
 }
 
