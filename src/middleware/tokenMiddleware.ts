@@ -2,6 +2,12 @@ import { NextFunction, Response, Request } from "express";
 import boom from "@hapi/boom";
 import jwt from "jsonwebtoken";
 
+/**
+ * @description Validate the jwt
+ * @param {Authorization} req
+ * @returns {NextFunction || Response} Jwt ? next : unauthorized
+ */
+
 const validateToken = async (
   req: Request,
   res: Response,

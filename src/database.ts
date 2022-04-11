@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+
 dotenv.config();
 mongoose
   // @ts-ignore
@@ -7,9 +8,9 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => {
+  .then((): void => {
     console.log("Connected to database");
   })
-  .catch((err) => {
+  .catch((err): void => {
     console.log(err);
   });

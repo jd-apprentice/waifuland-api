@@ -2,8 +2,13 @@ import User from "../models/user";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import generateAccessToken from "../services/generateToken";
-
 class UserController {
+  /**
+   * @description Create a new user on the db, as default isAdmin is false so it can't upload images
+   * @param {username<string>} req
+   * @param {password<string>} req
+   * @returns {Response<string>} A success message that the user was created
+   */
   async createUser(req: Request, res: Response) {
     const { username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -17,7 +22,16 @@ class UserController {
     });
   }
 
-  async login(req: Request, res: Response) {
+  /**
+   * @description Generates a token and setHeaders of the user
+   * @param {username<string>} req
+   * @returns {Response<string>} Json response with the token
+   */
+
+  async login(
+    req: Request,
+    res: Response
+  ): Promise<Response<string, Record<string, any>>> {
     const { username } = req.body;
     const token = generateAccessToken(username);
     return res
