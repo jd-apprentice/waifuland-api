@@ -5,7 +5,16 @@ import clearTemporaryFiles from "../utils/clear";
 import { Request, Response } from "express";
 
 class ImageController {
-  async uploadFile(req: Request, res: Response) {
+  /**
+   * @description Upload a file to cloudinary then saves the url on mongodb
+   * @param {Request} file.path
+   * @returns {Response<string>} A success message with a Json response format
+   */
+
+  async uploadFile(
+    req: Request,
+    res: Response
+  ): Promise<Response<string, Record<string, any>>> {
     try {
       const { file } = req;
       const response = await ImageService.cloudinaryUpload(file?.path);
@@ -22,15 +31,23 @@ class ImageController {
     }
   }
 
+  /**
+   * @description Get a random waifu from the collection!
+   * @query size
+   * @returns {Response<string> || Response[]<string>} An url with the waifu image hosted in cloudinary
+   */
+
   async getRandomImage(req: Request, res: Response) {
     try {
       const { size }: any = req.query;
-      const getImages = await Image.find()
-      const urls = getImages.map(image => image.url);
-      const randomArray = (urls.sort(randomUrls))
+      const getImages = await Image.find();
+      const urls = getImages.map((image) => image.url);
+      const randomArray = urls.sort(randomUrls);
       const sizeArray = randomArray.slice(0, size);
       const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-      return res.json( size === undefined || null ? { url: randomUrl } : { urls: sizeArray } );
+      return res.json(
+        size === undefined || null ? { url: randomUrl } : { urls: sizeArray }
+      );
     } catch {
       return res.json({ message: "No se pudo encontrar alguna imagen" });
     }
