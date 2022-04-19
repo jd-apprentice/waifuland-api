@@ -33,7 +33,15 @@
 - Cloudinary
 - Heroku
 - Mongodb
+
 - Mongoose
+
+## 🧱 Structure 
+
+- User enters the page
+![Login](https://user-images.githubusercontent.com/68082746/164032923-64c5d286-e232-478f-b121-39d28b71b416.png)
+- Once user is logged into the page
+![Token](https://user-images.githubusercontent.com/68082746/164033037-6191489e-3561-46b3-a0c4-7324faf9abb7.png)
 
 ## Contributors ✨
 
