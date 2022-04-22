@@ -33,7 +33,6 @@
 - Cloudinary
 - Heroku
 - Mongodb
-
 - Mongoose
 
 ## 🧱 Structure 
