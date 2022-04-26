@@ -3,6 +3,7 @@ import Image from "../models/image";
 import ImageService from "../services/imageService";
 import clearTemporaryFiles from "../utils/clear";
 import { Request, Response } from "express";
+import { Size } from "../models/interfaces/types";
 
 class ImageController {
   /**
@@ -17,9 +18,8 @@ class ImageController {
   ): Promise<Response<string, Record<string, any>>> {
     try {
       const { file } = req;
-      const response = await ImageService.cloudinaryUpload(file?.path);
-      // @ts-ignore
-      clearTemporaryFiles(file?.path);
+      const response = await ImageService.cloudinaryUpload(file?.path!);
+      clearTemporaryFiles(file?.path!);
       const image = new Image({
         public_id: response.public_id,
         url: response.secure_url,
@@ -37,9 +37,12 @@ class ImageController {
    * @returns {Response<string> || Response[]<string>} An url with the waifu image hosted in cloudinary
    */
 
-  async getRandomImage(req: Request, res: Response) {
+  async getRandomImage(
+    req: Request,
+    res: Response
+  ): Promise<Response<string, Record<string, any>>> {
     try {
-      const { size }: any = req.query;
+      const { size } = req.query as unknown as Size;
       const getImages = await Image.find();
       const urls = getImages.map((image) => image.url);
       const randomArray = urls.sort(randomUrls);

@@ -2,6 +2,7 @@ import User from "../models/user";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import generateAccessToken from "../services/generateToken";
+import { IUser, UsernameType } from "../models/interfaces/types";
 class UserController {
   /**
    * @description Create a new user on the db, as default isAdmin is false so it can't upload images
@@ -9,8 +10,9 @@ class UserController {
    * @param {password<string>} req
    * @returns {Response<string>} A success message that the user was created
    */
-  async createUser(req: Request, res: Response) {
-    const { username, password } = req.body;
+
+  async createUser(req: Request, res: Response): Promise<Response> {
+    const { username, password }: IUser = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
       username,
@@ -32,8 +34,8 @@ class UserController {
     req: Request,
     res: Response
   ): Promise<Response<string, Record<string, any>>> {
-    const { username } = req.body;
-    const token = generateAccessToken(username);
+    const { username }: UsernameType = req.body;
+    const token: string = generateAccessToken(username);
     return res
       .setHeader("Authorization", `Bearer ${token}`)
       .json({ token: token });
