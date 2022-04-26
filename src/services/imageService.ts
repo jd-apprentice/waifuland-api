@@ -1,6 +1,8 @@
 const cloudinary = require("cloudinary").v2;
-import { Config } from "src/models/interfaces/cloudinary";
+import { PathLike } from "fs";
+import { Config, FileMulter } from "src/models/interfaces/types";
 import { setConfig, setCloudinary } from "../config/cloud";
+import { ImageType } from "../models/interfaces/types";
 
 class ImageService {
   config: Config;
@@ -11,12 +13,12 @@ class ImageService {
     this.storage = setCloudinary();
   }
 
-  async cloudinaryUpload(file: any) {
+  async cloudinaryUpload(file: FileMulter | PathLike): Promise<ImageType> {
     try {
       const response = cloudinary.uploader.upload(file, this.config);
       return response;
-    } catch (error) {
-      return { message: error };
+    } catch (error: any) {
+      throw new Error(error);
     }
   }
 }
