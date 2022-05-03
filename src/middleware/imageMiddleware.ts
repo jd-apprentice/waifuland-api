@@ -1,6 +1,6 @@
 import { Request } from "express";
 import multer from "multer";
-import boom from "@hapi/boom";
+import boom, { Boom } from "@hapi/boom";
 import { FileMulter } from "src/models/interfaces/types";
 
 /**

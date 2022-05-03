@@ -3,7 +3,7 @@ import Image from "../models/image";
 import ImageService from "../services/imageService";
 import clearTemporaryFiles from "../utils/clear";
 import { Request, Response } from "express";
-import { Size } from "../models/interfaces/types";
+import { FileRequest, Size } from "../models/interfaces/types";
 
 class ImageController {
   /**
@@ -17,7 +17,7 @@ class ImageController {
     res: Response
   ): Promise<Response<string, Record<string, any>>> {
     try {
-      const { file } = req;
+      const { file }: FileRequest = req;
       const response = await ImageService.cloudinaryUpload(file?.path!);
       clearTemporaryFiles(file?.path!);
       const image = new Image({
