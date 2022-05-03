@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export interface Config {
   cloud_name: string;
   api_key: string;
@@ -30,3 +32,4 @@ export interface Size {
 }
 
 export declare type FileMulter = Express.Multer.File;
+export declare type FileRequest = Express.Request;
