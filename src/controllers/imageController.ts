@@ -3,7 +3,7 @@ import Image from "../models/image";
 import ImageService from "../services/imageService";
 import clearTemporaryFiles from "../utils/clear";
 import { Request, Response } from "express";
-import { FileRequest, Size } from "../models/interfaces/types";
+import { FileRequest, ImageProps, Size } from "../models/interfaces/types";
 
 class ImageController {
   /**
@@ -18,15 +18,20 @@ class ImageController {
   ): Promise<Response<string, Record<string, any>>> {
     try {
       const { file }: FileRequest = req;
+      const { tag, source, is_nsfw } = req.body;
       const response = await ImageService.cloudinaryUpload(file?.path!);
-      clearTemporaryFiles(file?.path!);
-      const image = new Image({
-        public_id: response.public_id,
-        url: response.secure_url,
+      const { public_id, secure_url } = response;
+      const image: ImageProps = new Image({
+        source,
+        is_nsfw,
+        tag,
+        id: public_id,
+        url: secure_url,
       });
+      clearTemporaryFiles(file?.path!);
       await image.save();
       return res.json({ url: "Imagen guardada correctamente" });
-    } catch (error) {
+    } catch (error: unknown) {
       return res.json({ message: error });
     }
   }
