@@ -6,6 +6,18 @@ export interface Config {
   api_secret: string;
 }
 
+export interface ImageProps {
+  id: string;
+  url: string;
+  source: string;
+  is_nsfw: boolean;
+  tag: {
+    name: string;
+    description: string;
+  };
+  save: () => Promise<void>;
+}
+
 export interface ImageType {
   public_id: string;
   secure_url: string;
