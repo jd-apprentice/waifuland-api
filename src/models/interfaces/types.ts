@@ -1,5 +1,3 @@
-import mongoose from "mongoose";
-
 export interface Config {
   cloud_name: string;
   api_key: string;
@@ -17,12 +15,14 @@ export interface ImageProps {
   };
   save: () => Promise<void>;
 }
-
 export interface ImageType {
   public_id: string;
   secure_url: string;
 }
 
+export interface ImageTypeResponse extends ImageType {
+  url: string;
+}
 export interface Storage {
   cloudinary: any;
 }
@@ -45,3 +45,4 @@ export interface Size {
 
 export declare type FileMulter = Express.Multer.File;
 export declare type FileRequest = Express.Request;
+export type ImageProp = Omit<ImageProps, "save">;

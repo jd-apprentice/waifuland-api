@@ -1,7 +1,7 @@
 import { Request } from "express";
 import multer from "multer";
 import boom, { Boom } from "@hapi/boom";
-import { FileMulter } from "src/models/interfaces/types";
+import { FileMulter } from "../models/interfaces/types";
 
 /**
  * @description middleware for checking if the user is uploading anything but an image
