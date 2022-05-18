@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import cors from "cors";
 import routes from "./routes/index";
-dotenv.config();
 
 async function run(): Promise<typeof mongoose | void> {
   await mongoose

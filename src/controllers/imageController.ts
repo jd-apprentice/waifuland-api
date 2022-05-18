@@ -30,7 +30,7 @@ class ImageController {
       clearTemporaryFiles(file?.path!);
       return res.json({ url: "Imagen guardada correctamente" });
     } catch (error: unknown) {
-      return res.json({ message: error });
+      return res.json({ message: (<Error>error).message });
     }
   }
 
