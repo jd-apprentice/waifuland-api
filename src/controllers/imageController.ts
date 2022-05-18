@@ -1,9 +1,8 @@
 import randomUrls from "../utils/random";
-import Image from "../models/image";
 import ImageService from "../services/imageService";
 import clearTemporaryFiles from "../utils/clear";
 import { Request, Response } from "express";
-import { FileRequest, ImageProps, Size } from "../models/interfaces/types";
+import { FileRequest, Size } from "../models/interfaces/types";
 
 class ImageController {
   /**
@@ -21,15 +20,14 @@ class ImageController {
       const { tag, source, is_nsfw } = req.body;
       const response = await ImageService.cloudinaryUpload(file?.path!);
       const { public_id, secure_url } = response;
-      const image: ImageProps = new Image({
+      ImageService.upload({
         source,
         is_nsfw,
         tag,
-        id: public_id,
         url: secure_url,
+        id: public_id,
       });
       clearTemporaryFiles(file?.path!);
-      await image.save();
       return res.json({ url: "Imagen guardada correctamente" });
     } catch (error: unknown) {
       return res.json({ message: error });
@@ -48,7 +46,7 @@ class ImageController {
   ): Promise<Response<string, Record<string, any>>> {
     try {
       const { size } = req.query as unknown as Size;
-      const getImages = await Image.find();
+      const getImages = await ImageService.getImage();
       const urls = getImages.map((image) => image.url);
       const randomArray = urls.sort(randomUrls);
       const sizeArray = randomArray.slice(0, size);
