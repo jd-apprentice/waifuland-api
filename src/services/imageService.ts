@@ -8,7 +8,7 @@ import {
 } from "../models/interfaces/types";
 import { setConfig, setCloudinary } from "../config/cloud";
 import { ImageType } from "../models/interfaces/types";
-import Image from "../models/image";
+import imageRepository from "../repositories/image-repository";
 
 class ImageService {
   config: Config;
@@ -30,15 +30,7 @@ class ImageService {
 
   async upload(newImage: ImageProp) {
     try {
-      const { source, is_nsfw, tag, url, id } = newImage;
-      const image = new Image({
-        source,
-        is_nsfw,
-        tag,
-        id,
-        url,
-      });
-      await image.save();
+      return imageRepository.create(newImage);
     } catch (error: any) {
       throw new Error(error);
     }
@@ -46,8 +38,7 @@ class ImageService {
 
   async getImage(): Promise<ImageTypeResponse[]> {
     try {
-      const images = await Image.find();
-      return images;
+      return imageRepository.get();
     } catch (error: any) {
       throw new Error(error);
     }

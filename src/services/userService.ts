@@ -1,14 +1,9 @@
+import userRepository from "../repositories/user-repository";
 import { IUser } from "../models/interfaces/types";
-import User from "../models/user";
 
 class UserService {
   async createUser(user: IUser) {
-    const { username, password } = user;
-    const newUser = new User({
-      username,
-      password,
-    });
-    await newUser.save();
+    return userRepository.create(user);
   }
 }
 
