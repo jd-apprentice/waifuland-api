@@ -43,6 +43,10 @@ export interface Size {
   size: number;
 }
 
+export interface State<T> {
+  [key: string]: T;
+}
+
 export declare type FileMulter = Express.Multer.File;
 export declare type FileRequest = Express.Request;
 export type ImageProp = Omit<ImageProps, "save">;

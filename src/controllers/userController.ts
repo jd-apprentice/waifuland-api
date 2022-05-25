@@ -14,12 +14,13 @@ class UserController {
   async createUser(req: Request, res: Response): Promise<Response> {
     const { username, password }: IUser = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = UserService.createUser({
+    const newUser = await UserService.createUser({
       username,
       password: hashedPassword,
     });
+    await newUser.save();
     return res.json({
-      user: newUser,
+      message: "User created successfully",
     });
   }
 
