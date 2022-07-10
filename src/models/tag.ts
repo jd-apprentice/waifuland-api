@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import pkg from "mongoose";
 const { Schema, model } = pkg;
 
@@ -7,8 +8,8 @@ const TagScheema = new Schema({
     required: true,
   },
   tag_id: {
-    type: String,
-    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Image",
   },
   description: {
     type: String,

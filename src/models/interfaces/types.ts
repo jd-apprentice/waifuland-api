@@ -9,9 +9,11 @@ export interface ImageProps {
   url: string;
   source: string;
   is_nsfw: boolean;
-  tag: {
+  tags: {
     name: string;
     description: string;
+    is_nsfw: boolean;
+    tag_id: string;
   };
   save: () => Promise<void>;
 }

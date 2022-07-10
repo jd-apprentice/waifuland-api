@@ -17,13 +17,13 @@ class ImageController {
   ): Promise<Response<string, Record<string, any>>> {
     try {
       const { file }: FileRequest = req;
-      const { tag, source, is_nsfw } = req.body;
+      const { tags, source, is_nsfw } = req.body;
       const response = await ImageService.cloudinaryUpload(file?.path!);
       const { public_id, secure_url } = response;
       ImageService.upload({
         source,
         is_nsfw,
-        tag,
+        tags,
         url: secure_url,
         id: public_id,
       });
