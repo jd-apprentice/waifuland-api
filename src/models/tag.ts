@@ -7,17 +7,18 @@ const TagScheema = new Schema({
     required: true,
   },
   tag_id: {
-    type: String,
-    required: true,
+    type: Number,
+    required: false,
   },
   description: {
     type: String,
-    required: true,
+    required: false,
   },
   is_nsfw: {
     type: Boolean,
-    required: true,
+    required: false,
   },
-});
+  
+}, { timestamps: true, versionKey: false });
 
-export default model("Tags", TagScheema);
+export default model("Tag", TagScheema);

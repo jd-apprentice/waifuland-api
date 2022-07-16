@@ -23,9 +23,9 @@ class ImageController {
       ImageService.upload({
         source,
         is_nsfw,
-        tag,
-        url: secure_url,
         id: public_id,
+        url: secure_url,
+        tag
       });
       clearTemporaryFiles(file?.path!);
       return res.json({ url: "Imagen guardada correctamente" });
