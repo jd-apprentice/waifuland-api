@@ -4,15 +4,19 @@ export interface Config {
   api_secret: string;
 }
 
+export interface Tag {
+  name: string;
+  tag_id: string;
+  description: string;
+  is_nsfw: boolean;
+}
+
 export interface ImageProps {
   id: string;
   url: string;
   source: string;
   is_nsfw: boolean;
-  tag: {
-    name: string;
-    description: string;
-  };
+  tag: Tag
   save: () => Promise<void>;
 }
 export interface ImageType {

@@ -37,7 +37,7 @@ const validateUser = async (
     const user: UsernameAdmin | null = await User.findOne({ username });
     const isAdmin = user?.isAdmin;
     const adminPassword = user?.password;
-    const isMatch = bcrypt.compare(password, adminPassword!); // Compare the password with the hash password
+    const isMatch = await bcrypt.compare(password, adminPassword!); // Compare the password with the hash password
     return isAdmin && isMatch ? next() : res.json(boom.unauthorized()); // If the username is admin and password match, then next()
   } catch (error) {
     return res.status(400) && res.json(boom.badRequest("Something went wrong")); // Error handling
