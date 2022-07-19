@@ -55,9 +55,9 @@ class ImageService {
 
   async getImage(): Promise<ImageTypeResponse[]> {
     try {
-      return imageRepository.get();
-    } catch (error: any) {
-      throw new Error(error);
+      return imageRepository.findImages();
+    } catch (error: unknown) {
+      throw new Error((<Error>error).message);
     }
   }
 }

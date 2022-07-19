@@ -8,15 +8,15 @@ const TagScheema = new Schema({
   },
   tag_id: {
     type: Number,
-    required: false,
+    required: true,
   },
   description: {
     type: String,
-    required: false,
+    required: true,
   },
   is_nsfw: {
     type: Boolean,
-    required: false,
+    required: true,
   },
   
 }, { timestamps: true, versionKey: false });

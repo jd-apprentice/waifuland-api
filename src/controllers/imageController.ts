@@ -25,7 +25,7 @@ class ImageController {
         is_nsfw,
         id: public_id,
         url: secure_url,
-        tag
+        tag,
       });
       clearTemporaryFiles(file?.path!);
       return res.json({ url: "Imagen guardada correctamente" });
@@ -34,12 +34,14 @@ class ImageController {
     }
   }
 
+
   /**
    * @description Get a random waifu from the collection!
+   * @param {Request} req body
+   * @param {Response} res object
    * @query size
-   * @returns {Response<string> || Response[]<string>} An url with the waifu image hosted in cloudinary
+   * @returns {Response<string>} || Response[]<string>} An url with the waifu image hosted in cloudinary
    */
-
   async getRandomImage(
     req: Request,
     res: Response
@@ -56,6 +58,33 @@ class ImageController {
       );
     } catch {
       return res.json({ message: "No se pudo encontrar alguna imagen" });
+    }
+  }
+
+  /**
+   * @description Get all images from the database
+   * @param { Request } req
+   * @param { Response } res
+   * @returns { Response<Image> } an array of images
+   */
+
+  async getImages(
+    req: Request,
+    res: Response
+  ): Promise<
+    Response<
+      (new (
+        width?: number | undefined,
+        height?: number | undefined
+      ) => HTMLImageElement)[],
+      Record<string, any>
+    >
+  > {
+    try {
+      const images = await ImageService.getImage();
+      return res.json(images);
+    } catch (error: unknown) {
+      return res.json({ message: (<Error>error).message });
     }
   }
 }

@@ -1,7 +1,7 @@
 import { ImageProp, ImageTypeResponse } from "../models/interfaces/types";
 import Image from "../models/image";
 import Tag from "../models/tag"
-import { AnyObject } from "mongoose";
+import tagService from "../services/tagService";
 
 class ImageRepository {
 
@@ -22,13 +22,15 @@ class ImageRepository {
   }
 
   /**
-   * @description Get a image from the database
-   * @returns {Promise<any>}
+   * @description Get all images from the database
+   * @returns 
    */
 
-  async get(): Promise<any> {
+  async findImages() {
     return Image.find();
   }
+
+  
 }
 
 export default new ImageRepository();
