@@ -19,6 +19,12 @@ class ImageService {
     this.storage = setCloudinary();
   }
 
+  /**
+   * @description Uploads the image to Cloudinary
+   * @param {FileMulter | PathLike} file 
+   * @returns {Promise<ImageType>}
+   */
+
   async cloudinaryUpload(file: FileMulter | PathLike): Promise<ImageType> {
     try {
       const response = cloudinary.uploader.upload(file, this.config);
@@ -28,7 +34,13 @@ class ImageService {
     }
   }
 
-  async upload(newImage: ImageProp) {
+  /**
+   * @description Uploads the Image
+   * @param  { ImageProp } newImage 
+   * @returns { Promise<T> }
+   */
+
+  async upload(newImage: ImageProp): Promise<any> {
     try {
       return imageRepository.create(newImage);
     } catch (error: any) {
@@ -36,11 +48,16 @@ class ImageService {
     }
   }
 
+  /**
+   * @description Get a image
+   * @returns {Promise<ImageTypeResponse[]>}
+   */
+
   async getImage(): Promise<ImageTypeResponse[]> {
     try {
-      return imageRepository.get();
-    } catch (error: any) {
-      throw new Error(error);
+      return imageRepository.findImages();
+    } catch (error: unknown) {
+      throw new Error((<Error>error).message);
     }
   }
 }

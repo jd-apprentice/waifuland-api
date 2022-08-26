@@ -11,6 +11,7 @@ imageRouter.post(
   upload.single("image"),
   ImageController.uploadFile
 );
-imageRouter.get("/", ImageController.getRandomImage);
+imageRouter.get("/random", ImageController.getRandomImage);
+imageRouter.get("/", ImageController.getImages);
 
 export default imageRouter;

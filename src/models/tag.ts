@@ -7,7 +7,7 @@ const TagScheema = new Schema({
     required: true,
   },
   tag_id: {
-    type: String,
+    type: Number,
     required: true,
   },
   description: {
@@ -18,6 +18,7 @@ const TagScheema = new Schema({
     type: Boolean,
     required: true,
   },
-});
+  
+}, { timestamps: true, versionKey: false });
 
-export default model("Tags", TagScheema);
+export default model("Tag", TagScheema);

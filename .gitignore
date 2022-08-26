@@ -129,5 +129,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# Others
+
+assets/images
+
 # private-key
 private.key
