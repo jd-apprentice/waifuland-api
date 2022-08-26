@@ -1,10 +1,11 @@
 {
   "name": "waifuland",
   "version": "1.0.0",
-  "author": "jd-apprentice",
+  "author": "jd-apprentice <emeraldusk@gmail.com>",
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
+    "deploy": "yarn install && tsc",
     "build": "tsc",
     "dev": "nodemon src/index.ts",
     "start": "node ."
