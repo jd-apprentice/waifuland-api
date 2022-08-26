@@ -1,6 +1,9 @@
 # 🎲 WAIFULAND-API
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![WaifuLand](https://user-images.githubusercontent.com/68082746/155921172-311bb682-cfed-494f-89c5-371e22ac25a6.gif)
@@ -13,8 +16,8 @@
 
 ## 🚧 Routes
 
-- ```GET``` Grab a random image ```api/images```
-- ```GET``` Grab an array of random images ```api/images?size=<Size>```
+- `GET` Grab a random image `api/images`
+- `GET` Grab an array of random images `api/images?size=<Size>`
 
 ## 📖 Status
 
@@ -22,7 +25,7 @@
 
 ## 🌐 Can I use the api?
 
-- Yes! is currently being hosted in heroku -> [Get waifu](https://waifuland-api.herokuapp.com/api/images)
+- Yes! is currently being hosted in Render -> [Get waifu](https://waifuland-api.onrender.com/api/images)
 
 ## 📚 Stack
 
@@ -31,16 +34,16 @@
 - Typescript
 - Multer
 - Cloudinary
-- Heroku
+- Render
 - Mongodb
 - Mongoose
 
-## 🧱 Structure 
+## 🧱 Structure
 
 - User enters the page
-![Login](https://user-images.githubusercontent.com/68082746/164032923-64c5d286-e232-478f-b121-39d28b71b416.png)
+  ![Login](https://user-images.githubusercontent.com/68082746/164032923-64c5d286-e232-478f-b121-39d28b71b416.png)
 - Once user is logged into the page
-![Token](https://user-images.githubusercontent.com/68082746/164033037-6191489e-3561-46b3-a0c4-7324faf9abb7.png)
+  ![Token](https://user-images.githubusercontent.com/68082746/164033037-6191489e-3561-46b3-a0c4-7324faf9abb7.png)
 
 ## Contributors ✨
 
