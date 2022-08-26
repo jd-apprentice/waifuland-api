@@ -2,7 +2,7 @@ import randomUrls from "../utils/random";
 import ImageService from "../services/imageService";
 import clearTemporaryFiles from "../utils/clear";
 import { Request, Response } from "express";
-import { FileRequest, State } from "../models/interfaces/types";
+import { FileRequest, Size, State } from "../models/interfaces/types";
 
 class ImageController {
   /**
@@ -47,7 +47,7 @@ class ImageController {
     res: Response
   ): Promise<Response<string, Record<string, any>>> {
     try {
-      const { size } = req.query as unknown as State<number>;
+      const { size } = req.query as unknown as Size;
       const getImages = await ImageService.getImage();
       const urls = getImages.map((image) => image.url);
       const randomArray = urls.sort(randomUrls);

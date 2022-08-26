@@ -1,4 +1,6 @@
-function randomUrls(a: any, b: any) {
+
+/-------Randomize the urls----------/
+function randomUrls() {
   return 0.5 - Math.random();
 }
 
