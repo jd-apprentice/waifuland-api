@@ -1,13 +1,17 @@
 import jwt from "jsonwebtoken";
-const { TOKEN } = process.env;
+import Config from "../config/config";
 
 /**
  * @description Signs a token
- * @param {string} user
- * @returns {string} token
+ * @param {string} user - The user to sign
+ * @returns {string} Generates a token
  */
 
-const generateToken = (user: string): string =>
-  jwt.sign({ user }, TOKEN!, { expiresIn: "1d" });
+const generateToken = (user: string): string | undefined => {
+  const { secret } = Config.jwt;
+  if (secret) {
+    return jwt.sign({ user }, secret, { expiresIn: "1d" });
+  }
+};
 
 export default generateToken;

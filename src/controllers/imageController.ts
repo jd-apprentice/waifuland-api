@@ -2,7 +2,7 @@ import randomUrls from "../utils/random";
 import ImageService from "../services/imageService";
 import clearTemporaryFiles from "../utils/clear";
 import { Request, Response } from "express";
-import { FileRequest, Size, State } from "../models/interfaces/types";
+import { Size } from "../models/interfaces/types";
 
 class ImageController {
   /**
@@ -14,11 +14,11 @@ class ImageController {
   async uploadFile(
     req: Request,
     res: Response
-  ): Promise<Response<string, Record<string, any>>> {
+  ): Promise<Response<string, Record<string, unknown>>> {
     try {
-      const { file }: FileRequest = req;
+      const { file } = req;
       const { tag, source, is_nsfw } = req.body;
-      const response = await ImageService.cloudinaryUpload(file?.path!);
+      const response = await ImageService.cloudinaryUpload(file?.path);
       const { public_id, secure_url } = response;
       ImageService.upload({
         source,
@@ -27,29 +27,28 @@ class ImageController {
         url: secure_url,
         tag,
       });
-      clearTemporaryFiles(file?.path!);
+      clearTemporaryFiles(file?.path ?? "assets/images");
       return res.json({ url: "Imagen guardada correctamente" });
     } catch (error: unknown) {
       return res.json({ message: (<Error>error).message });
     }
   }
 
-
   /**
    * @description Get a random waifu from the collection!
    * @param {Request} req body
    * @param {Response} res object
    * @query size
-   * @returns {Response<string>} || Response[]<string>} An url with the waifu image hosted in cloudinary
+   * @returns {Response<string>} An url with the waifu image hosted in cloudinary
    */
   async getRandomImage(
     req: Request,
     res: Response
-  ): Promise<Response<string, Record<string, any>>> {
+  ): Promise<Response<string, Record<string, unknown>>> {
     try {
       const { size } = req.query as unknown as Size;
       const getImages = await ImageService.getImage();
-      const urls = getImages.map((image) => image.url);
+      const urls = getImages.map((image: { url: string }) => image.url);
       const randomArray = urls.sort(randomUrls);
       const sizeArray = randomArray.slice(0, size);
       const randomUrl = urls[Math.floor(Math.random() * urls.length)];
@@ -77,7 +76,7 @@ class ImageController {
         width?: number | undefined,
         height?: number | undefined
       ) => HTMLImageElement)[],
-      Record<string, any>
+      Record<string, unknown>
     >
   > {
     try {

@@ -1,6 +1,5 @@
 import tagService from "../services/tagService";
 import { Request, Response } from "express";
-import { Tag } from "models/interfaces/types";
 
 class TagController {
   /**
@@ -19,7 +18,7 @@ class TagController {
         width?: number | undefined,
         height?: number | undefined
       ) => HTMLImageElement)[],
-      Record<string, any>
+      Record<string, unknown>
     >
   > {
     try {
@@ -47,11 +46,10 @@ class TagController {
         width?: number | undefined,
         height?: number | undefined
       ) => HTMLImageElement)[],
-      Record<string, any>
+      Record<string, unknown>
     >
   > {
     try {
-      console.log(id)
       const tag = await tagService.getTagById(id);
       return res.json(tag);
     } catch (error: unknown) {
