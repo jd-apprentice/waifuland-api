@@ -1,6 +1,5 @@
-import { IImage, ImageProp } from "../models/interfaces/types";
+import { IImage } from "../models/interfaces/types";
 import Image from "../models/image";
-import { HydratedDocument } from "mongoose";
 
 class ImageRepository {
   /**
@@ -8,16 +7,15 @@ class ImageRepository {
    * @param {ImageProp} image
    */
 
-  async create(image: ImageProp): Promise<IImage> {
-    const img = new Image(image);
-    return img.save();
+  async create(image: IImage): Promise<IImage> {
+    return Image.create(image);
   }
 
   /**
    * @description Get all images from the database
    */
 
-  async findImages(): Promise<HydratedDocument<IImage, any>> {
+  async findImages(): Promise<IImage[]> {
     return Image.find();
   }
 }

@@ -4,8 +4,8 @@ import { PathLike } from "fs";
 import {
   Config,
   FileMulter,
+  IImage,
   ImageProp,
-  ImageTypeResponse,
 } from "../models/interfaces/types";
 import { setConfig, setCloudinary } from "../config/cloud";
 import { ImageType } from "../models/interfaces/types";
@@ -51,10 +51,10 @@ class ImageService {
   }
 
   /**
-   * @description Get a image
+   * @description Get images
    */
 
-  async getImage(): Promise<ImageTypeResponse[]> {
+  async getImage(): Promise<IImage[]> {
     try {
       return imageRepository.findImages();
     } catch (error: unknown) {
