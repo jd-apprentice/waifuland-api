@@ -1,13 +1,13 @@
 import tagRepository from "../repositories/tag-repository";
-
+import Tag from "../models/tag";
+import { FindCursor } from "mongodb";
 class TagService {
-
   /**
    * @description Get all tags from the database
-   * @returns {Promise<any[]>} An array of Tag entities
+   * @returns {Promise<typeof Tag[]>} An array of Tag entities
    */
 
-  async getTag(): Promise<any[]> {
+  async getTag(): Promise<typeof Tag[]> {
     try {
       return tagRepository.findTags();
     } catch (error: unknown) {
@@ -15,7 +15,13 @@ class TagService {
     }
   }
 
-  async getTagById(id: string): Promise<any> {
+  /**
+   * @description Get one tag from the database
+   * @param id - The id of the entity
+   * @returns {Promise<FindCursor | null>} - One single tag
+   */
+
+  async getTagById(id: string): Promise<FindCursor | null> {
     try {
       return tagRepository.findTagById(id);
     } catch (error: unknown) {

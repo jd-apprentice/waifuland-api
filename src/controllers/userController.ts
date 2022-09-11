@@ -33,9 +33,9 @@ class UserController {
   async login(
     req: Request,
     res: Response
-  ): Promise<Response<string, Record<string, any>>> {
+  ): Promise<Response<string, Record<string, unknown>>> {
     const { username }: UsernameType = req.body;
-    const token: string = generateAccessToken(username);
+    const token = generateAccessToken(username);
     return res
       .setHeader("Authorization", `Bearer ${token}`)
       .json({ token: token });

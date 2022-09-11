@@ -10,7 +10,7 @@ declare global {
       CLOUD_API_KEY: number;
       CLOUD_SECRET: string;
       CLOUDINARY_URL: string;
-      ENV: "test" | "dev" | "prod";
+      NODE_ENV: string;
     }
   }
 }
