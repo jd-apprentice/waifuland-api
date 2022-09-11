@@ -1,9 +1,10 @@
-import Tag from "../models/tag"
+import { FindCursor } from "mongodb";
+import Tag from "../models/tag";
 
 class TagRepository {
-    /**
+  /**
    * @description Get all tags from the database
-   * @returns {Promise<Tag[]>} An array of Tag entities
+   * @returns {Promise<typeof Tag[]>} An array of Tag entities
    */
 
   async findTags(): Promise<typeof Tag[]> {
@@ -12,10 +13,10 @@ class TagRepository {
 
   /**
    * @description Get all tags from the database
-   * @returns {Promise<any>} An array of Tag entities
+   * @returns {Promise} - One single tag
    */
 
-  async findTagById(id: string): Promise<any> {
+  async findTagById(id: string): Promise<FindCursor | null> {
     return Tag.findById(id);
   }
 }

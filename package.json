@@ -5,24 +5,29 @@
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "deploy": "yarn install && tsc",
-    "build": "tsc",
-    "dev": "nodemon src/index.ts",
-    "start": "node ."
+    "prebuild": "rimraf dist",
+    "build:prod": "yarn install && tsc",
+    "build:dev": "tsc",
+    "dev": "NODE_ENV=development nodemon src/index.ts",
+    "start:dev": "NODE_ENV=development node .",
+    "start:prod": "NODE_ENV=production node .",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.4",
+    "@types/dotenv-flow": "^3.2.0",
     "bcrypt": "^5.0.1",
     "cloudinary": "^1.28.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
+    "dotenv-flow": "^3.2.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.4.0",
     "mongoose": "^6.3.3",
     "multer": "^1.4.4",
     "multer-storage-cloudinary": "^4.0.0",
-    "passport": "^0.5.2"
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -32,6 +37,9 @@
     "@types/multer": "^1.4.7",
     "@types/node": "^17.0.8",
     "@types/passport": "^1.0.7",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "eslint": "^8.23.0",
     "nodemon": "^2.0.15",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5"

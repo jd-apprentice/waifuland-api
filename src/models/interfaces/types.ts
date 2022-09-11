@@ -16,7 +16,7 @@ export interface ImageProps {
   url: string;
   source: string;
   is_nsfw: boolean;
-  tag: Tag
+  tag: Tag;
   save: () => Promise<void>;
 }
 export interface ImageType {
@@ -54,3 +54,4 @@ export interface State<T> {
 export declare type FileMulter = Express.Multer.File;
 export declare type FileRequest = Express.Request;
 export type ImageProp = Omit<ImageProps, "save">;
+export type IImage = ImageProp;
