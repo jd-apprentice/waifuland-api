@@ -11,8 +11,7 @@
 ## 🗒 About the project
 
 - The project is a API-REST which gives random waifu images, they are uploaded to cloudinary and their public url is stored in mongodb
-- There is no real purpose on this project, just for learning
-- Learning throught documentation
+- Learning throught documentation and breaking things
 
 ## 🚧 Routes
 
@@ -37,6 +36,37 @@
 - Render
 - Mongodb
 - Mongoose
+
+## 🏗️ Build the project locally
+
+```
+Install yarn if you dont have it already
+
+>> npm install --global yarn
+
+Fill the fields in the .env.example
+
+# App port
+PORT=
+
+# Your mongodb uri
+DB_HOST=
+
+# Your secret hash for signing petitions
+TOKEN=
+
+# Your cloudinary information
+CLOUD_NAME=
+CLOUD_API_KEY=
+CLOUD_SECRET=
+CLOUDINARY_URL=
+
+>> cp .env.example .env
+
+>> yarn install
+
+>> yarn dev
+```
 
 ## 🧱 Structure
 
@@ -64,3 +94,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+```
+
+```
