@@ -6,7 +6,7 @@ export interface Config {
 
 export interface Tag {
   name: string;
-  tag_id: string;
+  tag_id: number;
   description: string;
   is_nsfw: boolean;
 }

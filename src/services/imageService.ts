@@ -42,7 +42,7 @@ class ImageService {
    * @description Uploads the Image
    */
 
-  async upload(newImage: ImageProp): Promise<ImageProp> {
+  async upload(newImage: ImageProp) {
     try {
       return imageRepository.create(newImage);
     } catch (error: unknown) {
