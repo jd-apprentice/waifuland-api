@@ -1,4 +1,4 @@
-import { IImage } from "../models/interfaces/types";
+import { IImage, ImageProps } from "../models/interfaces/types";
 import Image from "../models/image";
 import Tag from "../models/tag";
 
@@ -21,8 +21,8 @@ class ImageRepository {
    * @description Get all images from the database
    */
 
-  async findImages(): Promise<IImage[]> {
-    return Image.find({ populate: "Tag" });
+  async findImages(): Promise<ImageProps[]> {
+    return Image.find().populate("tag");
   }
 }
 

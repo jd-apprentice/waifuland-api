@@ -11,6 +11,7 @@ import { setConfig, setCloudinary } from "../config/cloud";
 import { ImageType } from "../models/interfaces/types";
 import imageRepository from "../repositories/image-repository";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
+import randomUrls from "../utils/random";
 
 class ImageService {
   config: Config;
@@ -52,11 +53,39 @@ class ImageService {
 
   /**
    * @description Get images
+   * @param size - amount of images to retrieve
+   * @return {Promise} An array of images or a individual image
    */
 
-  async getImage(): Promise<IImage[]> {
+  async getImage(size?: number): Promise<IImage[] | IImage> {
     try {
-      return imageRepository.findImages();
+      const images = await imageRepository.findImages();
+      const urls = images.map((image) => {
+        return {
+          id: image.id,
+          url: image.url,
+          is_nsfw: image.is_nsfw,
+          tag: image.tag,
+        };
+      });
+      const randomArray = urls.sort(randomUrls);
+      const sizeArray = randomArray.slice(0, size);
+      const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+      return size === undefined || null ? randomUrl : sizeArray;
+    } catch (error: unknown) {
+      throw new Error((<Error>error).message);
+    }
+  }
+
+  /**
+   * @description Get all images without business logic
+   * @return {Promise<IImage[]>} An array of images with business logic
+   */
+
+  async getAllImages(): Promise<IImage[]> {
+    try {
+      const images = await imageRepository.findImages();
+      return images;
     } catch (error: unknown) {
       throw new Error((<Error>error).message);
     }

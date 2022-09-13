@@ -14,7 +14,7 @@ export interface Tag {
 export interface ImageProps {
   id: string;
   url: string;
-  source: string;
+  source?: string;
   is_nsfw: boolean;
   tag: Tag;
   save: () => Promise<void>;
