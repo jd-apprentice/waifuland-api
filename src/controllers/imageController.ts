@@ -1,4 +1,3 @@
-import randomUrls from "../utils/random";
 import ImageService from "../services/imageService";
 import clearTemporaryFiles from "../utils/clear";
 import { Request, Response } from "express";
@@ -11,10 +10,7 @@ class ImageController {
    * @returns {Response<string>} A success message with a Json response format
    */
 
-  async uploadFile(
-    req: Request,
-    res: Response
-  ): Promise<Response<string, Record<string, unknown>>> {
+  async uploadFile(req: Request, res: Response): Promise<Response> {
     try {
       const { file } = req;
       const { tag, source, is_nsfw } = req.body;
@@ -38,23 +34,14 @@ class ImageController {
    * @description Get a random waifu from the collection!
    * @param {Request} req body
    * @param {Response} res object
-   * @query size
+   * @query size - number of items to retrieve
    * @returns {Response<string>} An url with the waifu image hosted in cloudinary
    */
-  async getRandomImage(
-    req: Request,
-    res: Response
-  ): Promise<Response<string, Record<string, unknown>>> {
+  async getRandomImage(req: Request, res: Response): Promise<Response> {
     try {
       const { size } = req.query as unknown as Size;
-      const getImages = await ImageService.getImage();
-      const urls = getImages.map((image: { url: string }) => image.url);
-      const randomArray = urls.sort(randomUrls);
-      const sizeArray = randomArray.slice(0, size);
-      const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-      return res.json(
-        size === undefined || null ? { url: randomUrl } : { urls: sizeArray }
-      );
+      const getImages = await ImageService.getImage(size);
+      return res.json(getImages);
     } catch {
       return res.json({ message: "No se pudo encontrar alguna imagen" });
     }
@@ -64,23 +51,12 @@ class ImageController {
    * @description Get all images from the database
    * @param { Request } req
    * @param { Response } res
-   * @returns { Response<Image> } an array of images
+   * @returns { ImageProp[] } All images from the database without business logic
    */
 
-  async getImages(
-    req: Request,
-    res: Response
-  ): Promise<
-    Response<
-      (new (
-        width?: number | undefined,
-        height?: number | undefined
-      ) => HTMLImageElement)[],
-      Record<string, unknown>
-    >
-  > {
+  async getImages(req: Request, res: Response): Promise<Response> {
     try {
-      const images = await ImageService.getImage();
+      const images = await ImageService.getAllImages();
       return res.json(images);
     } catch (error: unknown) {
       return res.json({ message: (<Error>error).message });
