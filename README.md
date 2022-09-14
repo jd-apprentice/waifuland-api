@@ -24,7 +24,7 @@
 
 ## 🌐 Can I use the api?
 
-- Yes! is currently being hosted in Render -> [Get waifu](https://waifuland-api.onrender.com/api/images/random)
+- Yes! is currently being hosted in Render -> [Get waifu](https://waifuland-api.onrender.com/api/images)
 
 ## 📚 Stack
 
