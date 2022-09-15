@@ -22,7 +22,10 @@ class ImageRepository {
    */
 
   async findImages(): Promise<ImageProps[]> {
-    return Image.find().populate("tag");
+    return Image.find().populate({
+      path: "tag",
+      select: "-_id",
+    });
   }
 }
 
