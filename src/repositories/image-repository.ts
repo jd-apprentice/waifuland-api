@@ -1,7 +1,7 @@
 import { IImage } from "../models/interfaces/types";
 import Image from "../models/image";
 import Tag from "../models/tag";
-
+import { hasTag } from "../utils/ref";
 class ImageRepository {
   /**
    * @description Creates a new Image
@@ -25,13 +25,7 @@ class ImageRepository {
    */
 
   async findImages(tag_id?: number): Promise<IImage[]> {
-    const images = await Image.find().populate({
-      path: "tag",
-      select: "-_id",
-      match: {
-        tag_id,
-      },
-    });
+    const images = await Image.find().populate(hasTag(tag_id));
     return images.filter((image) => image.tag !== null);
   }
 }

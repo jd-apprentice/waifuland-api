@@ -1,5 +1,7 @@
-function randomUrls(): number {
+export function randomUrls(): number {
   return 0.5 - Math.random();
 }
 
-export default randomUrls;
+export function randomTag(tags: number): number {
+  return Math.floor(Math.random() * tags) + 1;
+}
