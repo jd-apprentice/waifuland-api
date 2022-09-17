@@ -43,8 +43,9 @@ export interface UsernameAdmin extends IUser {
   isAdmin: boolean;
 }
 
-export interface Size {
-  size: number;
+export interface Query {
+  size?: number;
+  tag_id?: number;
 }
 
 export interface State<T> {

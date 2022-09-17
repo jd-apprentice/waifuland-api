@@ -1,7 +1,7 @@
 import ImageService from "../services/imageService";
 import clearTemporaryFiles from "../utils/clear";
 import { Request, Response } from "express";
-import { Size } from "../models/interfaces/types";
+import { Query } from "../models/interfaces/types";
 
 class ImageController {
   /**
@@ -39,8 +39,8 @@ class ImageController {
    */
   async getRandomImage(req: Request, res: Response): Promise<Response> {
     try {
-      const { size } = req.query as unknown as Size;
-      const getImages = await ImageService.getImage(size);
+      const { size, tag_id } = req.query as unknown as Query;
+      const getImages = await ImageService.getImage(size, tag_id);
       return res.json(getImages);
     } catch {
       return res.json({ message: "No se pudo encontrar alguna imagen" });
@@ -56,7 +56,8 @@ class ImageController {
 
   async getImages(req: Request, res: Response): Promise<Response> {
     try {
-      const images = await ImageService.getAllImages();
+      const { tag_id } = req.query as unknown as Query;
+      const images = await ImageService.getAllImages(tag_id);
       return res.json(images);
     } catch (error: unknown) {
       return res.json({ message: (<Error>error).message });
