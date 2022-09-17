@@ -6,8 +6,7 @@ import { setConfig, setCloudinary } from "../config/cloud";
 import { ImageType } from "../models/interfaces/types";
 import imageRepository from "../repositories/image-repository";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
-import randomUrls from "../utils/random";
-import { maxSize } from "../const/index";
+import { randomUrls } from "../utils/random";
 
 class ImageService {
   config: Config;
@@ -68,10 +67,7 @@ class ImageService {
         };
       });
       const randomArray = urls.sort(randomUrls);
-      const sizeArray = randomArray.slice(
-        0,
-        size && size > 50 ? maxSize : size
-      );
+      const sizeArray = randomArray.slice(0, size);
       const randomUrl = urls[Math.floor(Math.random() * urls.length)];
       return size === undefined || null ? randomUrl : sizeArray;
     } catch (error: unknown) {
