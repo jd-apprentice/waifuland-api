@@ -17,6 +17,9 @@
 
 - `GET` Grab a random image `api/images`
 - `GET` Grab an array of random images `api/images?size=<Size>`
+- `GET` Grab a random image `api/images?tag_id=<tag_id>`
+- `GET` Example - `https://waifuland-api.onrender.com/api/images?size=5`
+- `GET` Example - `https://waifuland-api.onrender.com/api/images?size=5&tag_id=1`
 
 ## 📖 Status
 
