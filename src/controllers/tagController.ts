@@ -9,18 +9,7 @@ class TagController {
    * @returns { Response<Tag> } an array of tags
    */
 
-  async getTags(
-    req: Request,
-    res: Response
-  ): Promise<
-    Response<
-      (new (
-        width?: number | undefined,
-        height?: number | undefined
-      ) => HTMLImageElement)[],
-      Record<string, unknown>
-    >
-  > {
+  async getTags(req: Request, res: Response): Promise<Response> {
     try {
       const tags = await tagService.getTag();
       return res.json(tags);
@@ -36,19 +25,7 @@ class TagController {
    * @returns { Response<Tag> } an array of tags
    */
 
-  async getTagsId(
-    req: Request,
-    res: Response,
-    id: string
-  ): Promise<
-    Response<
-      (new (
-        width?: number | undefined,
-        height?: number | undefined
-      ) => HTMLImageElement)[],
-      Record<string, unknown>
-    >
-  > {
+  async getTagsId(req: Request, res: Response, id: string): Promise<Response> {
     try {
       const tag = await tagService.getTagById(id);
       return res.json(tag);

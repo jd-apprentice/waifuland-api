@@ -1,17 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const cloudinary = require("cloudinary").v2;
 import { PathLike } from "fs";
-import {
-  Config,
-  FileMulter,
-  IImage,
-  ImageProp,
-} from "../models/interfaces/types";
+import { Config, FileMulter, IImage } from "../models/interfaces/types";
 import { setConfig, setCloudinary } from "../config/cloud";
 import { ImageType } from "../models/interfaces/types";
 import imageRepository from "../repositories/image-repository";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import randomUrls from "../utils/random";
+import { maxSize } from "../const/index";
 
 class ImageService {
   config: Config;
@@ -41,9 +37,11 @@ class ImageService {
 
   /**
    * @description Uploads the Image
+   * @param {IImage} newImage - The image to upload
+   * @return {Promise<IImage>} - A result of uploading the image
    */
 
-  async upload(newImage: ImageProp) {
+  async upload(newImage: IImage): Promise<IImage> {
     try {
       return imageRepository.create(newImage);
     } catch (error: unknown) {
@@ -54,12 +52,13 @@ class ImageService {
   /**
    * @description Get images
    * @param size - amount of images to retrieve
-   * @return {Promise} An array of images or a individual image
+   * @param tag_id - the id from the tag to retrieve
+   * @return { Promise<IImage[] | IImage> } An array of images or a individual image
    */
 
-  async getImage(size?: number): Promise<IImage[] | IImage> {
+  async getImage(size?: number, tag_id?: number): Promise<IImage[] | IImage> {
     try {
-      const images = await imageRepository.findImages();
+      const images = await imageRepository.findImages(tag_id);
       const urls = images.map((image) => {
         return {
           id: image.id,
@@ -69,7 +68,10 @@ class ImageService {
         };
       });
       const randomArray = urls.sort(randomUrls);
-      const sizeArray = randomArray.slice(0, size);
+      const sizeArray = randomArray.slice(
+        0,
+        size && size > 50 ? maxSize : size
+      );
       const randomUrl = urls[Math.floor(Math.random() * urls.length)];
       return size === undefined || null ? randomUrl : sizeArray;
     } catch (error: unknown) {
@@ -79,12 +81,13 @@ class ImageService {
 
   /**
    * @description Get all images without business logic
-   * @return {Promise<IImage[]>} An array of images with business logic
+   * @param tag_id - the id from the tag to retrieve
+   * @return { Promise<IImage[]> } An array of images without business logic
    */
 
-  async getAllImages(): Promise<IImage[]> {
+  async getAllImages(tag_id?: number): Promise<IImage[]> {
     try {
-      const images = await imageRepository.findImages();
+      const images = await imageRepository.findImages(tag_id);
       return images;
     } catch (error: unknown) {
       throw new Error((<Error>error).message);
