@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  waifuland_app:
+    container_name: waifuland_app_container
+    image: waifuland_image
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - PORT=${PORT}
+      - PORT_MONGO=${PORT_MONGO}
+      - DB_HOST=${DB_HOST}
+      - TOKEN=${TOKEN}
+      - CLOUD_NAME=${CLOUD_NAME}
+      - CLOUD_API_KEY=${CLOUD_API_KEY}
+      - CLOUD_SECRET=${CLOUD_SECRET}
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/app
