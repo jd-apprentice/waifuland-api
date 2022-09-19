@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build:prod": "rimraf dist && yarn install && tsc",
+    "build:prod": "yarn install && tsc",
     "build:dev": "tsc",
     "dev": "NODE_ENV=development nodemon src/index.ts",
     "start:dev": "NODE_ENV=development node .",
