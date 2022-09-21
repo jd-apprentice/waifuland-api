@@ -27,7 +27,7 @@
 
 ## 🌐 Can I use the api?
 
-- Yes! is currently being hosted in Render -> [Get waifu](https://waifuland-api.onrender.com/api/images)
+- Yes! is currently being hosted in Render -> [Get waifu](https://waifuland.jonathan.com.ar/api/images)
 
 ## 📚 Stack
 
@@ -36,7 +36,7 @@
 - Typescript
 - Multer
 - Cloudinary
-- Render
+- Digital Ocean
 - Mongodb
 - Mongoose
 
