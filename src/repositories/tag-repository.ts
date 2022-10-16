@@ -15,15 +15,7 @@ class TagRepository {
    * @description Get one tag from the database
    */
 
-  async findTagById(id: string): Promise<FindCursor | null> {
-    return Tag.findById(id);
-  }
-
-  /**
-   * @description Get one tag from the database
-   */
-
-  async findByTagId(tagId: number) {
+  async findByTagId(tagId: number): Promise<FindCursor | null> {
     return Tag.findOne({ tag_id: tagId });
   }
 }

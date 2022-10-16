@@ -23,7 +23,7 @@ class TagService {
 
   async getTagById(id: string): Promise<FindCursor | null> {
     try {
-      return tagRepository.findTagById(id);
+      return tagRepository.findByTagId(+id);
     } catch (error: unknown) {
       throw new Error((<Error>error).message);
     }

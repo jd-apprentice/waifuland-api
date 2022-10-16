@@ -25,8 +25,9 @@ class TagController {
    * @returns { Response<Tag> } an array of tags
    */
 
-  async getTagsId(req: Request, res: Response, id: string): Promise<Response> {
+  async getTagsId(req: Request, res: Response): Promise<Response> {
     try {
+      const { id } = req.params;
       const tag = await tagService.getTagById(id);
       return res.json(tag);
     } catch (error: unknown) {
