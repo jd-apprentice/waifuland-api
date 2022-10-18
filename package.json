@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "rimraf dist",
+    "prebuild": "rm -rf dist",
     "build:prod": "yarn install && tsc",
     "build:dev": "tsc",
     "dev": "NODE_ENV=development nodemon src/index.ts",
@@ -19,14 +19,12 @@
     "cloudinary": "^1.28.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
-    "dotenv-flow": "^3.2.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.4.0",
     "mongoose": "^6.3.3",
     "multer": "^1.4.4",
-    "multer-storage-cloudinary": "^4.0.0",
-    "rimraf": "^3.0.2"
+    "multer-storage-cloudinary": "^4.0.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

@@ -4,10 +4,9 @@ import { FindCursor } from "mongodb";
 class TagService {
   /**
    * @description Get all tags from the database
-   * @returns {Promise<typeof Tag[]>} An array of Tag entities
    */
 
-  async getTag(): Promise<typeof Tag[]> {
+  async getTag() {
     try {
       return tagRepository.findTags();
     } catch (error: unknown) {
@@ -23,7 +22,7 @@ class TagService {
 
   async getTagById(id: string): Promise<FindCursor | null> {
     try {
-      return tagRepository.findTagById(id);
+      return tagRepository.findByTagId(id);
     } catch (error: unknown) {
       throw new Error((<Error>error).message);
     }

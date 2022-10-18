@@ -1,3 +1,5 @@
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+
 export interface Config {
   cloud_name: string;
   api_key: string;
@@ -28,7 +30,7 @@ export interface ImageTypeResponse extends ImageType {
   url: string;
 }
 export interface Storage {
-  cloudinary: any;
+  cloudinary: CloudinaryStorage;
 }
 
 export interface UsernameType {

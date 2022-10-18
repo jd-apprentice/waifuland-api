@@ -1,4 +1,4 @@
-import dotenv from "dotenv-flow";
+import dotenv from "dotenv";
 dotenv.config();
 
 const {
