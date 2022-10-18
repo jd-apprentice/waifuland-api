@@ -36,6 +36,7 @@
 - Typescript
 - Multer
 - Cloudinary
+- Render
 - Digital Ocean
 - Mongodb
 - Mongoose
