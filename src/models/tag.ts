@@ -20,6 +20,11 @@ const TagScheema = new Schema<Tag>(
       type: Boolean,
       required: true,
     },
+    is_active: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
   },
   { timestamps: true, versionKey: false }
 );
