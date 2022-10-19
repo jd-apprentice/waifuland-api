@@ -7,7 +7,7 @@ class TagRepository {
    */
 
   async findTags() {
-    return Tag.find();
+    return Tag.find({ is_active: true });
   }
 
   /**

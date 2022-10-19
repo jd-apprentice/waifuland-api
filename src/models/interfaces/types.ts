@@ -11,6 +11,7 @@ export interface Tag {
   tag_id: number;
   description: string;
   is_nsfw: boolean;
+  is_active: boolean;
 }
 
 export interface ImageProps {
