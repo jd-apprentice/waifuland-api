@@ -5,8 +5,8 @@ import Config from "../config/config";
 
 /**
  * @description Validate the jwt
- * @param {Authorization} req - Authorization headers
- * @returns {Response<Boom | NextFunction>} Jwt ? next : unauthorized
+ * @param {Authorization} req.headers - Authorization header with the token
+ * @returns {Response<Boom | NextFunction>} Authorization error or next
  */
 
 const validateToken = async (

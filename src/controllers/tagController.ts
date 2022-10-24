@@ -4,9 +4,8 @@ import { Request, Response } from "express";
 class TagController {
   /**
    * @description Get all tags from the database
-   * @param { Request } req
-   * @param { Response } res
-   * @returns { Response<Tag> } an array of tags
+   * @type {Response} res object with the waifu
+   * @returns { Promise<Response> } an array of tags
    */
 
   async getTags(req: Request, res: Response): Promise<Response> {
@@ -20,9 +19,9 @@ class TagController {
 
   /**
    * @description Get all tags from the database
-   * @param { Request } req
-   * @param { Response } res
-   * @returns { Response<Tag> } an array of tags
+   * @param { string } id - id of the tag
+   * @param { Response } res - object with the waifu
+   * @returns { Promise<Response> } Tag by id
    */
 
   async getTagsId(req: Request, res: Response): Promise<Response> {

@@ -6,9 +6,9 @@ import UserService from "../services/userService";
 class UserController {
   /**
    * @description Create a new user on the db, as default isAdmin is false so it can't upload images
-   * @param {username<string>} req
-   * @param {password<string>} req
-   * @returns {Response<string>} A success message that the user was created
+   * @param {string} req.body.username - username of the user
+   * @param {string} req.body.password - password of the user
+   * @returns {Promise<Response>} A success message that the user was created
    */
 
   async createUser(req: Request, res: Response): Promise<Response> {
@@ -26,14 +26,11 @@ class UserController {
 
   /**
    * @description Generates a token and setHeaders of the user
-   * @param {username<string>} req
-   * @returns {Response<string>} Json response with the token
+   * @param {string} req.body.username - username of the user
+   * @returns {Promise<Response>} Json response with the token
    */
 
-  async login(
-    req: Request,
-    res: Response
-  ): Promise<Response<string, Record<string, unknown>>> {
+  async login(req: Request, res: Response): Promise<Response> {
     const { username }: UsernameType = req.body;
     const token = generateAccessToken(username);
     return res
