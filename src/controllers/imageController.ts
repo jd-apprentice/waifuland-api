@@ -6,8 +6,9 @@ import { Query } from "../models/interfaces/types";
 class ImageController {
   /**
    * @description Upload a file to cloudinary then saves the url on mongodb
-   * @param {Request} file.path
-   * @returns {Response<string>} A success message with a Json response format
+   * @param { Request } req.body - tag, source, is_nsfw
+   * @param { Request } file.path - path to the file
+   * @returns { Promise<Response> } A success message with a Json response format
    */
 
   async uploadFile(req: Request, res: Response): Promise<Response> {
@@ -32,10 +33,10 @@ class ImageController {
 
   /**
    * @description Get a random waifu from the collection!
-   * @param {Request} req body
-   * @param {Response} res object
+   * @param { Response } res object with the waifu
    * @query size - number of items to retrieve
-   * @returns {Response<string>} An url with the waifu image hosted in cloudinary
+   * @query tag_id - tag to filter
+   * @returns { Promise<Response> } An url with the waifu image hosted in cloudinary
    */
   async getRandomImage(req: Request, res: Response): Promise<Response> {
     try {
@@ -49,9 +50,9 @@ class ImageController {
 
   /**
    * @description Get all images from the database
-   * @param { Request } req
-   * @param { Response } res
-   * @returns { ImageProp[] } All images from the database without business logic
+   * @query tag_id - tag to filter
+   * @param { Response } res object with the waifu
+   * @returns { Promise<Response> } All images from the database without business logic
    */
 
   async getImages(req: Request, res: Response): Promise<Response> {

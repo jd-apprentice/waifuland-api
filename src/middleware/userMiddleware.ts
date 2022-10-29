@@ -6,7 +6,7 @@ import { UsernameType } from "../models/interfaces/types";
 
 /**
  * @description Validates if the user exist in the database
- * @param {username} req - the username to check
+ * @param {string} req.body.username - the username to check
  * @returns {Response<Boom | NextFunction>} Response with the next function
  */
 
@@ -22,9 +22,9 @@ const userExists = async (
 
 /**
  * @description Validates if the user is administrator and their username & password
- * @param {username} req - the username to validate
- * @param {password} req - the password to validate
- * @returns {Response<Boom | NextFunction} if the username && password match and the user is admin ? next : unauthorized
+ * @param {string} req.body.username - the username to validate
+ * @param {string} req.body.password - the password to validate
+ * @returns {Response<Boom | NextFunction} if the username && password match and the user is admin then next() else return an error
  */
 
 const validateUser = async (
@@ -36,9 +36,9 @@ const validateUser = async (
     const { username, password } = req.body;
     const user = await User.findOne({ username });
     const isAdmin = user?.isAdmin;
-    const adminPassword = user?.password;
-    const isMatch = bcrypt.compare(password, adminPassword ?? password); // Compare the password with the hash password
-    return isAdmin && (await isMatch) ? next() : res.json(boom.unauthorized()); // If the username is admin and password match, then next()
+    const adminPass = user?.password;
+    const isMatch = adminPass && (await bcrypt.compare(password, adminPass)); // Compare the password with the hash password
+    return isAdmin && isMatch ? next() : res.json(boom.unauthorized()); // If the username is admin and password match, then next()
   } catch (error) {
     return res.status(400) && res.json(boom.badRequest("Something went wrong")); // Error handling
   }
