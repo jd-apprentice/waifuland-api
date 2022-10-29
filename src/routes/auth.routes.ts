@@ -5,5 +5,6 @@ import { userExists, validateUser } from "../middleware/userMiddleware";
 
 userRouter.post("/login", validateUser, UserController.login);
 userRouter.post("/create", userExists, UserController.createUser);
+userRouter.get("/:id", UserController.getUser);
 
 export default userRouter;

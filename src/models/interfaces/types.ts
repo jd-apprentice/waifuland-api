@@ -40,6 +40,9 @@ export interface UsernameType {
 
 export interface IUser extends UsernameType {
   password: string;
+  isAdmin?: boolean;
+  profile_picture?: string;
+  save?: () => Promise<void>;
 }
 
 export interface UsernameAdmin extends IUser {
