@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
-import generateAccessToken from "../services/generateToken";
+import generateAccessToken from "../utils/generateToken";
 import { IUser, UsernameType } from "../models/interfaces/types";
 import UserService from "../services/userService";
 class UserController {

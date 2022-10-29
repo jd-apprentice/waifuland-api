@@ -10,7 +10,7 @@ import Config from "../config/config";
 const generateToken = (user: string): string | undefined => {
   const { secret } = Config.jwt;
   if (secret) {
-    return jwt.sign({ user }, secret, { expiresIn: "1d" });
+    return jwt.sign({ user }, secret, { expiresIn: "7d" });
   }
 };
 
