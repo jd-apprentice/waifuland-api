@@ -1,7 +1,8 @@
 import pkg from "mongoose";
+import { IUser } from "./interfaces/types";
 const { Schema, model } = pkg;
 
-const UserSchema = new Schema(
+const UserSchema = new Schema<IUser>(
   {
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
@@ -11,4 +12,4 @@ const UserSchema = new Schema(
   { timestamps: true, versionKey: false }
 );
 
-export default model("User", UserSchema);
+export default model<IUser>("User", UserSchema);
