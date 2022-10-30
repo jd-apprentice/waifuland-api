@@ -1,12 +1,13 @@
 import tagRepository from "../repositories/tag-repository";
-import Tag from "../models/tag";
 import { FindCursor } from "mongodb";
+import { ITag } from "../models/interfaces/types";
 class TagService {
   /**
    * @description Get all tags from the database
+   * @return {Promise<Tag[]>} - An array of tags
    */
 
-  async getTag() {
+  async getTag(): Promise<ITag[]> {
     try {
       return tagRepository.findTags();
     } catch (error: unknown) {

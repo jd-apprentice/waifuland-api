@@ -32,10 +32,9 @@ class UserController {
 
   async login(req: Request, res: Response): Promise<Response> {
     const { username } = req.body;
+    const user = await UserService.findUserByUsername(username);
     const token = generateAccessToken(username);
-    const user = await userService.findUserByUsername(username);
-    const picture = user?.profile_picture;
-    return res.json({ token: token, picture });
+    return res.json({ token: token, picture: user?.profile_picture });
   }
 
   /**
@@ -46,11 +45,11 @@ class UserController {
 
   async getUser(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const user = await userService.findUserByUsername(id);
+    const user = await userService.findUserById(id);
     return res.json({
-      user: user?.username,
-      picture: user?.profile_picture,
+      username: user?.username,
       isAdmin: user?.isAdmin,
+      picture: user?.profile_picture,
     });
   }
 }

@@ -6,7 +6,7 @@ export interface Config {
   api_secret: string;
 }
 
-export interface Tag {
+export interface ITag {
   name: string;
   tag_id: number;
   description: string;
@@ -19,7 +19,7 @@ export interface ImageProps {
   url: string;
   source?: string;
   is_nsfw: boolean;
-  tag: Tag;
+  tag: ITag;
   save: () => Promise<void>;
 }
 export interface ImageType {

@@ -19,7 +19,7 @@ class ImageService {
 
   /**
    * @description Uploads the image to Cloudinary
-   * @param {FileMulter | PathLike} file
+   * @param {FileMulter | PathLike} file - the image to upload
    * @returns {Promise<ImageType>} - ImageType response
    */
 
@@ -35,7 +35,7 @@ class ImageService {
   }
 
   /**
-   * @description Uploads the Image
+   * @description Uploads the Image to Cloudinary and saves the image to the database
    * @param {IImage} newImage - The image to upload
    * @return {Promise<IImage>} - A result of uploading the image
    */
@@ -49,9 +49,9 @@ class ImageService {
   }
 
   /**
-   * @description Get images
-   * @param size - amount of images to retrieve
-   * @param tag_id - the id from the tag to retrieve
+   * @description Get an random image or an array of random images
+   * @param {number} size - amount of images to retrieve
+   * @param {number} tag_id - the id from the tag to retrieve
    * @return { Promise<IImage[] | IImage> } An array of images or a individual image
    */
 
@@ -77,7 +77,8 @@ class ImageService {
 
   /**
    * @description Get all images without business logic
-   * @param tag_id - the id from the tag to retrieve
+   * @param {number} tag_id - the id from the tag to retrieve
+   * @implements { imageRepository.findImages } - the repository to get the images
    * @return { Promise<IImage[]> } An array of images without business logic
    */
 

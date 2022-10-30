@@ -12,12 +12,21 @@ class UserRepository {
   }
 
   /**
-   * @description Find a user by username
-   * @param {string} id - username of the user
+   * @description Find a user by id
+   * @param {string} id - id of the user
    */
 
   async findUser(id: string): Promise<IUser | null> {
     return User.findOne({ _id: id });
+  }
+
+  /**
+   * @description Find a user by username
+   * @param {string} username - username of the user
+   */
+
+  async findUserByUsername(username: string): Promise<IUser | null> {
+    return User.findOne({ username });
   }
 }
 
