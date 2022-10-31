@@ -1,8 +1,8 @@
 import pkg from "mongoose";
-import { Tag } from "./interfaces/types";
+import { ITag } from "./interfaces/types";
 const { Schema, model } = pkg;
 
-const TagScheema = new Schema<Tag>(
+const TagScheema = new Schema<ITag>(
   {
     name: {
       type: String,
@@ -29,4 +29,4 @@ const TagScheema = new Schema<Tag>(
   { timestamps: true, versionKey: false }
 );
 
-export default model<Tag>("Tag", TagScheema);
+export default model<ITag>("Tag", TagScheema);

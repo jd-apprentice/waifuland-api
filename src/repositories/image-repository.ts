@@ -4,9 +4,9 @@ import Tag from "../models/tag";
 import { hasTag } from "../utils/ref";
 class ImageRepository {
   /**
-   * @description Creates a new Image
-   * @param {IImage} image - the image to create
-   * @return { Promise<IImage> } - A new image
+   * @description Creates a new Image in the database
+   * @param {IImage} image - the image to create in the database
+   * @return { Promise<IImage> } - A new image created
    */
 
   async create(image: IImage): Promise<IImage> {

@@ -2,14 +2,14 @@ import { Router } from "express";
 import validateToken from "../middleware/tokenMiddleware";
 import ImageController from "../controllers/imageController";
 import upload from "../middleware/imageMiddleware";
-import { validateUser } from "../middleware/userMiddleware";
+import { isAdmin } from "../middleware/userMiddleware";
 
 const imageRouter = Router();
 
 imageRouter.post(
   "/",
   validateToken,
-  validateUser,
+  isAdmin,
   upload.single("image"),
   ImageController.uploadFile
 );
