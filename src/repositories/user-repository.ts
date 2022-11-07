@@ -1,4 +1,4 @@
-import { IUser } from "../models/interfaces/types";
+import { IUser, UserPicture } from "../models/interfaces/types";
 import User from "../models/user";
 
 class UserRepository {
@@ -9,6 +9,15 @@ class UserRepository {
 
   async create(user: IUser) {
     return User.create(user);
+  }
+
+  /**
+   * @description Find users
+   * @return {Promise<IUser[]>} - An array of users
+   */
+
+  async findUsers(): Promise<IUser[]> {
+    return User.find();
   }
 
   /**
@@ -27,6 +36,22 @@ class UserRepository {
 
   async findUserByUsername(username: string): Promise<IUser | null> {
     return User.findOne({ username });
+  }
+
+  /**
+   * @description Update user profile picture
+   * @return { Promise<UserPicture> } - A result of updating the user
+   */
+
+  async updatePicture(
+    id: string,
+    picture: UserPicture
+  ): Promise<UserPicture | null> {
+    return User.findByIdAndUpdate(
+      id,
+      { profile_picture: picture },
+      { new: true }
+    );
   }
 }
 

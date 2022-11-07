@@ -1,6 +1,6 @@
 import { Router } from "express";
 import imageRouter from "./image.routes";
-import userRouter from "./auth.routes";
+import userRouter from "./user.routes";
 import tagRouter from "./tag.routes";
 const routes = Router();
 
