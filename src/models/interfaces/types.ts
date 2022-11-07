@@ -39,6 +39,7 @@ export interface UsernameType {
 }
 
 export interface IUser extends UsernameType {
+  _id?: string;
   password: string;
   isAdmin?: boolean;
   profile_picture?: string;
@@ -58,7 +59,15 @@ export interface State<T> {
   [key: string]: T;
 }
 
+export interface MongoUser {
+  _id: string;
+}
+
 export declare type FileMulter = Express.Multer.File;
 export declare type FileRequest = Express.Request;
 export type ImageProp = Omit<ImageProps, "save">;
+export type UserPicture = Omit<
+  IUser,
+  "username" | "password" | "save" | "isAdmin"
+>;
 export type IImage = ImageProp;
