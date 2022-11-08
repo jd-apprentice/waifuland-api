@@ -27,7 +27,7 @@ class ImageService {
     file: FileMulter | PathLike | string | undefined
   ): Promise<ImageType> {
     try {
-      const response = cloudinary.uploader.upload(file, this.config);
+      const response = await cloudinary.uploader.upload(file, this.config);
       return response;
     } catch (error: unknown) {
       throw new Error((<Error>error).message);
