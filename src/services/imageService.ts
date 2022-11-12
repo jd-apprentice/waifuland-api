@@ -20,14 +20,23 @@ class ImageService {
   /**
    * @description Uploads the image to Cloudinary
    * @param {FileMulter | PathLike} file - the image to upload
+   * @param {string} folder - the folder to upload the image to
+   * @param {string} file_name - the name of the image
    * @returns {Promise<ImageType>} - ImageType response
    */
 
   async cloudinaryUpload(
-    file: FileMulter | PathLike | string | undefined
+    file: FileMulter | PathLike | string | undefined,
+    folder?: string,
+    file_name?: string
   ): Promise<ImageType> {
     try {
-      const response = await cloudinary.uploader.upload(file, this.config);
+      const response = await cloudinary.uploader.upload(file, {
+        folder,
+        use_filename: true,
+        unique_filename: false,
+        filename_override: file_name,
+      });
       return response;
     } catch (error: unknown) {
       throw new Error((<Error>error).message);

@@ -111,7 +111,12 @@ class UserController {
       const { file } = req;
       const { authorization } = req.headers;
       const token = authorization?.replace("Bearer ", "") as string;
-      const image = await imageService.cloudinaryUpload(file?.path);
+      const findUser = await userService.getUserByToken(token);
+      const image = await imageService.cloudinaryUpload(
+        file?.path,
+        findUser?._id,
+        findUser?.username
+      );
       const { secure_url } = image;
       const user = await userService.updatePicture(
         token,

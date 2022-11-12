@@ -13,7 +13,7 @@ imageRouter.post(
   upload.single("image"),
   ImageController.uploadFile
 );
-imageRouter.get("/", validateToken, ImageController.getRandomImage);
-imageRouter.get("/all", validateToken, ImageController.getImages);
+imageRouter.get("/", ImageController.getRandomImage);
+imageRouter.get("/all", ImageController.getImages);
 
 export default imageRouter;
