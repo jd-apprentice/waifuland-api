@@ -25,6 +25,11 @@ class UserService {
     return userRepository.updatePicture(userFound?._id, user);
   }
 
+  async getUserByToken(token: string) {
+    const username = decodeToken(token) as unknown as State<string>;
+    return userRepository.findUserByUsername(username?.user);
+  }
+
   async getUserInfo(token: string) {
     const username = decodeToken(token) as unknown as State<string>;
     return userRepository.findUserByUsername(username?.user);
