@@ -8,10 +8,14 @@
 
 ![WaifuLand](https://user-images.githubusercontent.com/68082746/155921172-311bb682-cfed-494f-89c5-371e22ac25a6.gif)
 
+WaifuLand is a REST API that provides information about the anime world. It is a project that is still in development, but it is already functional.
+
 ## 🗒 About the project
 
-- The project is a API-REST which gives random waifu images, they are uploaded to cloudinary and their public url is stored in mongodb
+- The project is a REST API which gives random waifu images, they are uploaded to cloudinary and their public url is stored in mongodb
 - Learning throught documentation and breaking things
+- Expect many bugs and errors in the code
+- You are free to collaborate with the project or use it as you wish
 
 ## 🚧 Routes
 
@@ -27,7 +31,7 @@
 
 ## 🌐 Can I use the api?
 
-- Yes! is currently being hosted in Render -> [Get waifu](https://waifuland.jonathan.com.ar/api/images)
+- Yes! is currently being hosted in DigitalOcean -> [Get waifu](https://waifuland.jonathan.com.ar/api/images)
 
 ## 📚 Stack
 
@@ -46,7 +50,7 @@
 ```
 Install yarn if you dont have it already
 
->> npm install --global yarn
+>> npm install -g yarn
 
 Fill the fields in the .env.example
 
@@ -65,7 +69,7 @@ CLOUD_API_KEY=
 CLOUD_SECRET=
 CLOUDINARY_URL=
 
->> cp .env.example .env.development
+>> cp .env.example .env
 
 >> yarn install
 
@@ -78,6 +82,14 @@ CLOUDINARY_URL=
   ![Login](https://user-images.githubusercontent.com/68082746/164032923-64c5d286-e232-478f-b121-39d28b71b416.png)
 - Once user is logged into the page
   ![Token](https://user-images.githubusercontent.com/68082746/164033037-6191489e-3561-46b3-a0c4-7324faf9abb7.png)
+
+## 📝 License
+
+This project is under the MIT license. See the [LICENSE](./LICENSE) for more information.
+
+## 🤝 Contributing
+
+- For more information, check the [CONTRIBUTING](./CONTRIBUTING.md) file
 
 ## Contributors ✨
 
