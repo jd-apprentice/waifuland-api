@@ -22,8 +22,13 @@ WaifuLand is a REST API that provides information about the anime world. It is a
 - `GET` Grab a random image `api/images`
 - `GET` Grab an array of random images `api/images?size=<Size>`
 - `GET` Grab a random image `api/images?tag_id=<tag_id>`
-- `GET` Example - `https://waifuland.jonathan.com.ar/api/images?size=5`
-- `GET` Example - `https://waifuland.jonathan.com.ar/api/images?size=5&tag_id=1`
+
+## ✍️ Examples
+
+```bash
+$ curl https://waifuland.jonathan.com.ar/api/images -H "Accept: application/json"
+$ curl https://waifuland.jonathan.com.ar/api/images\?size\=5\&tag_id\=1 -H "Accept: application/json"
+```
 
 ## 📖 Status
 
@@ -48,10 +53,6 @@ WaifuLand is a REST API that provides information about the anime world. It is a
 ## 🏗️ Build the project locally
 
 ```
-Install yarn if you dont have it already
-
->> npm install -g yarn
-
 Fill the fields in the .env.example
 
 # App port
@@ -71,9 +72,9 @@ CLOUDINARY_URL=
 
 >> cp .env.example .env
 
->> yarn install
+>> npm install
 
->> yarn dev
+>> npm run dev
 ```
 
 ## 🧱 Structure
@@ -83,13 +84,31 @@ CLOUDINARY_URL=
 - Once user is logged into the page
   ![Token](https://user-images.githubusercontent.com/68082746/164033037-6191489e-3561-46b3-a0c4-7324faf9abb7.png)
 
+## 📁 Folders
+
+📦src
+┣ 📂app
+┣ 📂common
+┣ 📂image
+┗ 📂user
+┃ ┣ 📂dto
+┃ ┣ 📂interfaces
+┃ ┃ ┗ 📜user-interface.ts
+┃ ┣ 📂schema
+┃ ┃ ┗ 📜user-schema.ts
+┃ ┣ 📜user-controller.ts
+┃ ┣ 📜user-middleware.ts
+┃ ┣ 📜user-repository.ts
+┃ ┣ 📜user-routes.ts
+┃ ┗ 📜user-service.ts
+
 ## 📝 License
 
 This project is under the MIT license. See the [LICENSE](./LICENSE) for more information.
 
-## 🤝 Contributing
+## 🤝 Contribute
 
-- For more information, check the [CONTRIBUTING](./CONTRIBUTING.md) file
+- For more information, check the [CONTRIBUTE](./CONTRIBUTE.md) file
 
 ## Contributors ✨
 
@@ -100,7 +119,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://portfolio-jd.vercel.app/"><img src="https://avatars.githubusercontent.com/u/68082746?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Dyallo</b></sub></a><br /><a href="https://github.com/jd-apprentice/waifuland-api/commits?author=jd-apprentice" title="Code">💻</a> <a href="https://github.com/jd-apprentice/waifuland-api/commits?author=jd-apprentice" title="Tests">⚠️</a> <a href="https://github.com/jd-apprentice/waifuland-api/commits?author=jd-apprentice" title="Documentation">📖</a> <a href="#maintenance-jd-apprentice" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://jonathan.com.ar/es"><img src="https://avatars.githubusercontent.com/u/68082746?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Dyallo</b></sub></a><br /><a href="https://github.com/jd-apprentice/waifuland-api/commits?author=jd-apprentice" title="Code">💻</a> <a href="https://github.com/jd-apprentice/waifuland-api/commits?author=jd-apprentice" title="Tests">⚠️</a> <a href="https://github.com/jd-apprentice/waifuland-api/commits?author=jd-apprentice" title="Documentation">📖</a> <a href="#maintenance-jd-apprentice" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 

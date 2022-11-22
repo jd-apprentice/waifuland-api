@@ -9,12 +9,15 @@
       "login": "jd-apprentice",
       "name": "Jonathan Dyallo",
       "avatar_url": "https://avatars.githubusercontent.com/u/68082746?v=4",
-      "profile": "https://portfolio-jd.vercel.app/",
+      "profile": "https://jonathan.com.ar/es",
       "contributions": [
         "code",
         "test",
         "doc",
-        "maintenance"
+        "maintenance",
+        "design",
+        "ideas",
+        "infra"
       ]
     }
   ],
