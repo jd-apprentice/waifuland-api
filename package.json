@@ -7,7 +7,7 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "tsc",
-    "build:prod": "yarn prebuild && yarn install --production && yarn build",
+    "build:prod": "npm run prebuild && npm install && npm run build",
     "dev": "NODE_ENV=development nodemon src/app/main.ts",
     "start:dev": "NODE_ENV=development node .",
     "start:prod": "NODE_ENV=production node .",
@@ -40,7 +40,7 @@
     "@typescript-eslint/parser": "^5.36.2",
     "eslint": "^8.23.0",
     "nodemon": "^2.0.15",
-    "ts-node": "^10.5.0",
-    "typescript": "^4.5.5"
+    "typescript": "^4.5.5",
+    "ts-node": "^10.5.0"
   }
 }
