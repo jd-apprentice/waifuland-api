@@ -30,5 +30,6 @@ jobs:
             nvm install --lts
             nvm use --lts
             npm install -g pm2
+            pm2 stop all
             npm run build
-            pm2 restart waifuland-api
+            pm2 restart all
