@@ -48,8 +48,7 @@ jobs:
           script: |
             cd /${{ secrets.USER }}/projects/waifuland-api
             git pull origin master
-            npm install --production
-            npm run build
+            npm install --omit=dev
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
             docker compose up -d
 
