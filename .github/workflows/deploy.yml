@@ -1,0 +1,13 @@
+name: Deploy to Render
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render Deploy
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+               -d '{"branch": "main", "commit_sha": "'"$GITHUB_SHA"'"}' \
+               ${{ secrets.RENDER_DEPLOY_URL }}
