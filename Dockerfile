@@ -1,15 +1,4 @@
-FROM node:lts-alpine as build-runner
-WORKDIR /tmp/app
-COPY package.json .
-RUN npm install
-COPY src ./src
-COPY tsconfig.json .
+FROM dyallo/clockbox
 RUN npm run build
-
-FROM node:lts-alpine as prod-runner
-WORKDIR /app
-COPY --from=build-runner /tmp/app/package.json /app/package.json
-RUN npm install --production
-COPY --from=build-runner /tmp/app/dist /app/dist
-EXPOSE 4000
-CMD [ "node", "dist/app/main.js" ]
+RUN npm install
+CMD ["npm run start:dev"]
