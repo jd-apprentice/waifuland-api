@@ -12,4 +12,4 @@ COPY --from=build-runner /tmp/app/package.json /app/package.json
 RUN npm install --omit=dev
 COPY --from=build-runner /tmp/app/dist /app/dist
 EXPOSE 4000
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "node", "dist/app/main.js"]
