@@ -2,7 +2,7 @@ version: "3.1"
 services:
   waifuland_app:
     container_name: waifuland_app_container
-    image: dyallo/clockbox
+    image: dyallo/waifuland-api
     restart: always
     env_file:
       - .env

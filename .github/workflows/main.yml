@@ -28,7 +28,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/waifuland-api:latest
 
   compose-up:
     runs-on: ubuntu-22.04
@@ -49,6 +49,6 @@ jobs:
             cd /${{ secrets.USER }}/projects/waifuland-api
             git pull origin master
             npm install --omit=dev
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/waifuland-api:latest
             docker compose up -d
 
