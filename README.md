@@ -86,6 +86,7 @@ CLOUDINARY_URL=
 
 ## 📁 Folders
 
+```
 📦src
 ┣ 📂app
 ┣ 📂common
@@ -101,6 +102,7 @@ CLOUDINARY_URL=
 ┃ ┣ 📜user-repository.ts
 ┃ ┣ 📜user-routes.ts
 ┃ ┗ 📜user-service.ts
+```
 
 ## 📝 License
 

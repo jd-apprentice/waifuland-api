@@ -2,11 +2,8 @@ version: "3.1"
 services:
   waifuland_app:
     container_name: waifuland_app_container
-    image: waifuland_image
+    image: dyallo/waifuland-api
     restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile
     env_file:
       - .env
     environment:
@@ -19,5 +16,3 @@ services:
       - CLOUDINARY_URL=${CLOUDINARY_URL}
     ports:
       - 4000:4000
-    volumes:
-      - .:/app
