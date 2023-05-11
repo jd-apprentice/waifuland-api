@@ -1,4 +1,5 @@
 FROM node:lts-alpine as build-runner
+RUN echo "TEST"
 WORKDIR /tmp/app
 COPY package.json .
 RUN npm install
