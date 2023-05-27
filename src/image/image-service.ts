@@ -10,6 +10,8 @@ import imageRepository from "./image-repository";
 import { IImage, ImageType } from "./interfaces/image-interface";
 import { Config, FileMulter } from "../common/interfaces/types";
 import { randomUrls } from "../common/utils/random";
+import { rollbar } from "../app/main";
+import { LogArgument } from "rollbar";
 
 class ImageService {
   config: Config;
@@ -42,6 +44,7 @@ class ImageService {
       });
       return response;
     } catch (error: unknown) {
+      rollbar.error(error as LogArgument);
       throw new Error((<Error>error).message);
     }
   }
@@ -56,6 +59,7 @@ class ImageService {
     try {
       return imageRepository.create(newImage);
     } catch (error: unknown) {
+      rollbar.error(error as LogArgument);
       throw new Error((<Error>error).message);
     }
   }
@@ -83,6 +87,7 @@ class ImageService {
       const randomUrl = urls[Math.floor(Math.random() * urls.length)];
       return size === undefined || null ? randomUrl : sizeArray;
     } catch (error: unknown) {
+      rollbar.error(error as LogArgument);
       throw new Error((<Error>error).message);
     }
   }
@@ -99,6 +104,7 @@ class ImageService {
       const images = await imageRepository.findImages(tag_id);
       return images;
     } catch (error: unknown) {
+      rollbar.error(error as LogArgument);
       throw new Error((<Error>error).message);
     }
   }

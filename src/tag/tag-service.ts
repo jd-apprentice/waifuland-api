@@ -4,6 +4,8 @@ import { FindCursor } from "mongodb";
 // Internal Modules
 import tagRepository from "./tag-repository";
 import { ITag } from "./intefaces/tag-interface";
+import { LogArgument } from "rollbar";
+import { rollbar } from "../app/main";
 
 class TagService {
   /**
@@ -15,6 +17,7 @@ class TagService {
     try {
       return tagRepository.findTags();
     } catch (error: unknown) {
+      rollbar.error(error as LogArgument);
       throw new Error((<Error>error).message);
     }
   }
@@ -29,6 +32,7 @@ class TagService {
     try {
       return tagRepository.findByTagId(id);
     } catch (error: unknown) {
+      rollbar.error(error as LogArgument);
       throw new Error((<Error>error).message);
     }
   }
