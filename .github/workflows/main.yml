@@ -1,9 +1,22 @@
-name: ci
+name: CI/CD
 
 on:
   push:
     branches:
       - master
+      - development
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'Dockerfile'
+  pull_request:
+    branches:
+      - master
+      - development
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'Dockerfile'
 
 jobs:
   build:
@@ -30,6 +43,9 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/waifuland-api:latest
 
+<<<<<<< HEAD
+  ## TODO: Add tests
+=======
   compose-up:
     runs-on: ubuntu-22.04
     needs: build
@@ -49,3 +65,4 @@ jobs:
             cd /${{ secrets.USER }}/projects/waifuland-api
             docker compose up -d
 
+>>>>>>> master
