@@ -1,4 +1,4 @@
-export {};
+export { };
 
 declare global {
   namespace NodeJS {
@@ -11,6 +11,8 @@ declare global {
       CLOUD_SECRET: string;
       CLOUDINARY_URL: string;
       NODE_ENV: string;
+      ROLLBAR_TOKEN: string;
+      ROLLBAR_ENVIRONMENT: string;
     }
   }
 }

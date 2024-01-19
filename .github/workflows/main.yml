@@ -43,4 +43,26 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/waifuland-api:latest
 
+<<<<<<< HEAD
   ## TODO: Add tests
+=======
+  compose-up:
+    runs-on: ubuntu-22.04
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: SSH into server, pull and restart app
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /${{ secrets.USER }}/projects/waifuland-api
+            docker compose up -d
+
+>>>>>>> master

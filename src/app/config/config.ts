@@ -11,6 +11,8 @@ const {
   CLOUD_SECRET,
   CLOUDINARY_URL,
   NODE_ENV,
+  ROLLBAR_TOKEN,
+  ROLLBAR_ENVIRONMENT,
 } = process.env;
 
 const Config = {
@@ -30,6 +32,10 @@ const Config = {
     secret: CLOUD_SECRET,
     url: CLOUDINARY_URL,
   },
+  rollbar: {
+    accessToken: ROLLBAR_TOKEN,
+    environment: ROLLBAR_ENVIRONMENT,
+  }
 };
 
 export default Config;
