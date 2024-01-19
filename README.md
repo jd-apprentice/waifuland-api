@@ -46,7 +46,6 @@ $ curl https://waifuland.jonathan.com.ar/api/images\?size\=5\&tag_id\=1 -H "Acce
 - Multer
 - Cloudinary
 - Render
-- Digital Ocean
 - Mongodb
 - Mongoose
 
@@ -69,6 +68,10 @@ CLOUD_NAME=
 CLOUD_API_KEY=
 CLOUD_SECRET=
 CLOUDINARY_URL=
+
+# Rollbar information
+ROLLBAR_TOKEN=
+ROLLBAR_ENVIRONMENT=
 
 >> cp .env.example .env
 
