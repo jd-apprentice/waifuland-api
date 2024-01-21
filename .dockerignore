@@ -1,1 +1,8 @@
 node_modules/
+jest.config.js
+README.md
+CONTRIBUTE.md
+LICENSE
+.postman
+converage
+tests_output
