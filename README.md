@@ -1,5 +1,7 @@
 # 🎲 WAIFULAND-API
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a1af9f77714c498282b102bfb0fd7bf3)](https://app.codacy.com/gh/jd-apprentice/waifuland-api/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
