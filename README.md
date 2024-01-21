@@ -1,5 +1,7 @@
 # 🎲 WAIFULAND-API
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a1af9f77714c498282b102bfb0fd7bf3)](https://app.codacy.com/gh/jd-apprentice/waifuland-api/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
@@ -7,8 +9,6 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![WaifuLand](https://user-images.githubusercontent.com/68082746/155921172-311bb682-cfed-494f-89c5-371e22ac25a6.gif)
-
-<a href="https://www.digitalocean.com/?refcode=dea6443429a5&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg" alt="DigitalOcean Referral Badge" /></a>
 
 WaifuLand is a REST API that provides information about the anime world. It is a project that is still in development, but it is already functional.
 

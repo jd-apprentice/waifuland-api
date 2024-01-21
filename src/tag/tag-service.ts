@@ -5,7 +5,7 @@ import { FindCursor } from "mongodb";
 import tagRepository from "./tag-repository";
 import { ITag } from "./intefaces/tag-interface";
 import { LogArgument } from "rollbar";
-import { rollbar } from "../app/main";
+import { rollbar } from "../app/config/rollbar";
 
 class TagService {
   /**
