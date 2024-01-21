@@ -144,3 +144,10 @@ private.key
 # assets
 assets
 assets/images
+
+# tests
+tests_output/
+
+node_modules
+coverage
+dist

@@ -42,5 +42,3 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/waifuland-api:latest
-
-  ## TODO: Add tests

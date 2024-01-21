@@ -1,20 +1,11 @@
 version: "3.1"
+
 services:
-  waifuland_app:
-    container_name: waifuland_app_container
+  waifuland_api:
+    container_name: waifuland_api
     image: dyallo/waifuland-api
     restart: always
     env_file:
       - .env
-    environment:
-      - PORT=${PORT}
-      - DB_HOST=${DB_HOST}
-      - TOKEN=${TOKEN}
-      - CLOUD_NAME=${CLOUD_NAME}
-      - CLOUD_API_KEY=${CLOUD_API_KEY}
-      - CLOUD_SECRET=${CLOUD_SECRET}
-      - CLOUDINARY_URL=${CLOUDINARY_URL}
-      - ROLLBAR_TOKEN=${ROLLBAR_TOKEN}
-      - ROLLBAR_ENVIRONMENT=${ROLLBAR_ENVIRONMENT}
     ports:
       - 4000:4000

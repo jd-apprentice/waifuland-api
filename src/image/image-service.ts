@@ -10,8 +10,8 @@ import imageRepository from "./image-repository";
 import { IImage, ImageType } from "./interfaces/image-interface";
 import { Config, FileMulter } from "../common/interfaces/types";
 import { randomUrls } from "../common/utils/random";
-import { rollbar } from "../app/main";
 import { LogArgument } from "rollbar";
+import { rollbar } from "../app/config/rollbar";
 
 class ImageService {
   config: Config;
