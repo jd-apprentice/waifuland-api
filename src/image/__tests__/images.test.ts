@@ -36,7 +36,7 @@ describe('Images Module', () => {
     });
 
     beforeEach(async () => {
-        server = app.listen(3000);
+        server = app.listen(Config.app.port);
         await loadDatabase(Config.db.uri);
     })
 

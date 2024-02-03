@@ -42,7 +42,9 @@ jobs:
       - run: npm install
       - name: Run tests
         run: |
-          export DB_HOST=${{ secrets.DB_HOST }}
+          touch .env
+          echo DB_HOST="${{ secrets.DB_HOST }}" >> .env
+          echo PORT=3000 >> .env
           npm run test
 
   codacy:
