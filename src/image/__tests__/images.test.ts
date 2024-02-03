@@ -1,7 +1,11 @@
-import { app } from '../../app/main';
-import { server } from '../../app/index';
+import { loadDatabase } from "../../app/db";
+import Config from "../../app/config/config";
+import { app } from "../../app/main";
+
 import request from 'supertest';
 import { Response } from 'supertest';
+import { Server } from 'http';
+
 
 const baseRoute = '/api/images';
 const contentTypeKey = 'Content-Type';
@@ -24,6 +28,13 @@ const image = {
 }
 
 describe('Images Module', () => {
+
+    let server: Server;
+
+    beforeAll(async () => {
+        server = app.listen(3000);
+        await loadDatabase(Config.db.uri);
+    })
 
     test('GET /api/images - when asking for an image should return a random one', async () => {
         await request(app)
@@ -106,6 +117,10 @@ describe('Images Module', () => {
 
     afterAll(() => {
         server.close();
+    });
+
+    beforeEach(() => {
+        jest.resetModules();
     });
 
 })
