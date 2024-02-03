@@ -45,6 +45,9 @@ jobs:
           touch .env
           echo DB_HOST="${{ secrets.DB_HOST }}" >> .env
           echo PORT=3000 >> .env
+          echo NODE_ENV=TEST >> .env
+          echo ROLLBAR_TOKEN="${{ secrets.ROLLBAR_TOKEN }}" >> .env
+          echo ROLLBAR_ENVIRONMENT=development >> .env
           npm run test
 
   codacy:

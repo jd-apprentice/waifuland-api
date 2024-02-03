@@ -1,12 +1,19 @@
 import mongoose from "mongoose";
 import { rollbar } from "../config/rollbar";
+import Config from "../../app/config/config";
 
 const loadDatabase = async (uri: string): Promise<void> => {
     try {
         const connection = await mongoose.connect(uri);
-        rollbar.info(`Connected to ${connection.connection.name} database.`);
+        if (Config.app.environment != "TEST") {
+            rollbar.info(`Connected to ${connection.connection.name} database.`);
+        }
     } catch (err) {
-        rollbar.error(err);
+        if (Config.app.environment != "TEST") {
+            rollbar.error(err);
+            return;
+        }
+        console.error(err)
     }
 }
 
