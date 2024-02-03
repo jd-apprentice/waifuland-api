@@ -40,7 +40,10 @@ jobs:
           node-version: '18'
 
       - run: npm install
-      - run: npm run test
+      - name: Run tests
+        run: |
+          export DB_HOST=${{ secrets.DB_HOST }}
+          npm run test
 
   codacy:
     uses: jd-apprentice/jd-workflows/.github/workflows/codacy.yml@main
