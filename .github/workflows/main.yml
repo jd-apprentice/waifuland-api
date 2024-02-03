@@ -30,15 +30,7 @@ jobs:
       name: Gitleaks
     secrets:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
-
-  codacy:
-    uses: jd-apprentice/jd-workflows/.github/workflows/codacy.yml@main
-    needs: [gitleaks]
-    with:
-      name: Codacy
-    secrets:
-      project_token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-
+  
   test:
     runs-on: ubuntu-22.04
     steps:
@@ -49,6 +41,14 @@ jobs:
 
       - run: npm install
       - run: npm run test
+
+  codacy:
+    uses: jd-apprentice/jd-workflows/.github/workflows/codacy.yml@main
+    needs: [gitleaks, test]
+    with:
+      name: Codacy
+    secrets:
+      project_token: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
   build:
     runs-on: ubuntu-22.04

@@ -32,6 +32,10 @@ describe('Images Module', () => {
     let server: Server;
 
     beforeAll(async () => {
+        jest.resetModules();
+    });
+
+    beforeEach(async () => {
         server = app.listen(3000);
         await loadDatabase(Config.db.uri);
     })
@@ -115,13 +119,9 @@ describe('Images Module', () => {
             })
     });
 
-    afterAll(() => {
+    afterEach(() => {
         server.close();
-    });
-
-    beforeEach(() => {
-        jest.resetModules();
-    });
+    })
 
 })
 
