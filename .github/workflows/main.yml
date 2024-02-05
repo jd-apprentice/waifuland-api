@@ -30,10 +30,29 @@ jobs:
       name: Gitleaks
     secrets:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
+  
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - run: npm install
+      - name: Run tests
+        run: |
+          touch .env
+          echo DB_HOST="${{ secrets.DB_HOST }}" >> .env
+          echo PORT=3000 >> .env
+          echo NODE_ENV=TEST >> .env
+          echo ROLLBAR_TOKEN="${{ secrets.ROLLBAR_TOKEN }}" >> .env
+          echo ROLLBAR_ENVIRONMENT=development >> .env
+          npm run test
 
   codacy:
     uses: jd-apprentice/jd-workflows/.github/workflows/codacy.yml@main
-    needs: [gitleaks]
+    needs: [gitleaks, test]
     with:
       name: Codacy
     secrets:

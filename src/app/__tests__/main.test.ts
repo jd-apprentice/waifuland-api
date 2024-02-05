@@ -7,7 +7,7 @@ const httpSuccess = 200;
 
 describe('App Module', () => {
 
-    it('GET / - when asking for the root route should return 200 and catch all message', async () => {
+    test('GET / - when asking for the root route should return 200 and catch all message', async () => {
         await request(app)
             .get('/')
             .expect(contentTypeKey, contentTypeValue)
@@ -17,7 +17,7 @@ describe('App Module', () => {
             })
     });
 
-    it('GET /api - when asking for the api route should return 200 and api message', async () => {
+    test('GET /api - when asking for the api route should return 200 and api message', async () => {
         await request(app)
             .get('/api')
             .expect(contentTypeKey, contentTypeValue)
