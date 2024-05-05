@@ -12,7 +12,8 @@
     "start:dev": "NODE_ENV=development node .",
     "start:prod": "NODE_ENV=production node .",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.4",

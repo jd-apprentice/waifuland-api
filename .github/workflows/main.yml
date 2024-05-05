@@ -50,6 +50,8 @@ jobs:
           echo ROLLBAR_ENVIRONMENT=development >> .env
           npm run test
 
+      - uses: ArtiomTr/jest-coverage-report-action@v2.3.0
+
   codacy:
     uses: jd-apprentice/jd-workflows/.github/workflows/codacy.yml@main
     needs: [gitleaks, test]
