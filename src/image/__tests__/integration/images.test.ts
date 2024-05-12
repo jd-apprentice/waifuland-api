@@ -1,18 +1,17 @@
-import { loadDatabase } from "../../app/db";
-import Config from "../../app/config/config";
-import { app } from "../../app/main";
+import { loadDatabase } from "../../../app/db";
+import Config from "../../../app/config/config";
+import { app } from "../../../app/main";
 
 import request from 'supertest';
 import { Response } from 'supertest';
 import { Server } from 'http';
-
 
 const baseRoute = '/api/images';
 const contentTypeKey = 'Content-Type';
 const contentTypeValue = /json/;
 const httpSuccess = 200;
 
-const image = {
+export const image = {
     id: expect.any(String),
     url: expect.any(String),
     is_nsfw: expect.any(Boolean),
@@ -27,7 +26,7 @@ const image = {
     }
 }
 
-describe('Images Module', () => {
+describe("INTEGRATION - Images Module", () => {
 
     let server: Server;
 
