@@ -7,18 +7,16 @@ on:
       - master
       - development
     paths:
-      - 'src/**'
-      - 'tests/**'
-      - 'Dockerfile'
+      - "src/**"
+      - "Dockerfile"
   pull_request:
     branches:
       - master
       - development
     paths:
-      - 'src/**'
-      - 'tests/**'
-      - 'Dockerfile'
-  
+      - "src/**"
+      - "Dockerfile"
+
 env:
   BRANCH_NAME: ${{ github.ref_name }}
 
@@ -30,14 +28,14 @@ jobs:
       name: Gitleaks
     secrets:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
-  
+
   test:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: "18"
 
       - run: npm install
       - name: Run tests
@@ -48,7 +46,7 @@ jobs:
           echo NODE_ENV=TEST >> .env
           echo ROLLBAR_TOKEN="${{ secrets.ROLLBAR_TOKEN }}" >> .env
           echo ROLLBAR_ENVIRONMENT=development >> .env
-          npm run test
+          npm run test:coverage
 
       - uses: ArtiomTr/jest-coverage-report-action@v2.3.0
 
