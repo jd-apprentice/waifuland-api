@@ -7,18 +7,16 @@ on:
       - master
       - development
     paths:
-      - 'src/**'
-      - 'tests/**'
-      - 'Dockerfile'
+      - "src/**"
+      - "Dockerfile"
   pull_request:
     branches:
       - master
       - development
     paths:
-      - 'src/**'
-      - 'tests/**'
-      - 'Dockerfile'
-  
+      - "src/**"
+      - "Dockerfile"
+
 env:
   BRANCH_NAME: ${{ github.ref_name }}
 
@@ -30,17 +28,16 @@ jobs:
       name: Gitleaks
     secrets:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
-  
+
   test:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: '18'
+          bun-version: latest
 
-      - run: npm install
-      - name: Run tests
+      - name: install dependencies and test
         run: |
           touch .env
           echo DB_HOST="${{ secrets.DB_HOST }}" >> .env
@@ -48,7 +45,8 @@ jobs:
           echo NODE_ENV=TEST >> .env
           echo ROLLBAR_TOKEN="${{ secrets.ROLLBAR_TOKEN }}" >> .env
           echo ROLLBAR_ENVIRONMENT=development >> .env
-          npm run test
+          bun install
+          bun test
 
   codacy:
     uses: jd-apprentice/jd-workflows/.github/workflows/codacy.yml@main

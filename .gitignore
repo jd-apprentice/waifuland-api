@@ -146,7 +146,7 @@ assets
 assets/images
 
 # tests
-tests_output/
+.test-results/
 
 node_modules
 coverage

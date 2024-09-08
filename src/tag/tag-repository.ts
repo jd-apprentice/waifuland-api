@@ -1,16 +1,15 @@
 // External Modules Modules
-import { FindCursor } from "mongodb";
+import { FindCursor } from 'mongodb';
 
 // Internal Modules
-import { ITag } from "./intefaces/tag-interface";
-import Tag from "./schema/tag-schema";
+import { ITag } from './intefaces/tag-interface';
+import Tag from './schema/tag-schema';
 
 class TagRepository {
   /**
    * @description Get all tags from the database
    * @return {Promise<ITag[]>} - An array of tags
    */
-
   async findTags(): Promise<ITag[]> {
     return Tag.find({ is_active: true });
   }
@@ -20,7 +19,6 @@ class TagRepository {
    * @param tagId - The id of the entity
    * @returns {Promise<FindCursor | null>} - One single tag
    */
-
   async findByTagId(tagId: string): Promise<FindCursor | null> {
     return Tag.findOne({ tag_id: tagId });
   }
