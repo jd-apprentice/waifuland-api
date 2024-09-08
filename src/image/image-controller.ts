@@ -1,10 +1,10 @@
 // External Modules
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 
 // Interal Modules
-import clearTemporaryFiles from "../common/utils/clear";
-import ImageService from "./image-service";
-import { Query } from "../common/interfaces/types";
+import clearTemporaryFiles from '../common/utils/clear';
+import ImageService from './image-service';
+import { Query } from '../common/interfaces/types';
 
 class ImageController {
   /**
@@ -13,7 +13,6 @@ class ImageController {
    * @param { Request } file.path - path to the file
    * @returns { Promise<Response> } A success message with a Json response format
    */
-
   async uploadFile(req: Request, res: Response): Promise<Response> {
     try {
       const { file } = req;
@@ -27,8 +26,8 @@ class ImageController {
         url: secure_url,
         tag,
       });
-      clearTemporaryFiles(file?.path ?? "image/assets/images");
-      return res.json({ url: "Imagen guardada correctamente" });
+      clearTemporaryFiles(file?.path ?? 'image/assets/images');
+      return res.json({ url: 'Imagen guardada correctamente' });
     } catch (error: unknown) {
       return res.json({ message: (<Error>error).message });
     }
@@ -47,7 +46,7 @@ class ImageController {
       const getImages = await ImageService.getImage(size, tag_id);
       return res.json(getImages);
     } catch {
-      return res.json({ message: "No se pudo encontrar alguna imagen" });
+      return res.json({ message: 'No se pudo encontrar alguna imagen' });
     }
   }
 
@@ -57,7 +56,6 @@ class ImageController {
    * @param { Response } res object with the waifu
    * @returns { Promise<Response> } All images from the database without business logic
    */
-
   async getImages(req: Request, res: Response): Promise<Response> {
     try {
       const { tag_id } = req.query as unknown as Query;

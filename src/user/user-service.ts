@@ -1,8 +1,8 @@
 // Internal Modules
-import { State } from "../common/interfaces/types";
-import { IUser, MongoUser, UserPicture } from "./interfaces/user-interface";
-import { decodeToken } from "../common/utils/decodeToken";
-import userRepository from "./user-repository";
+import { State } from '../common/interfaces/types';
+import { IUser, MongoUser, UserPicture } from './interfaces/user-interface';
+import { decodeToken } from '../common/utils/decodeToken';
+import userRepository from './user-repository';
 
 class UserService {
   async findUserById(id: string) {
@@ -16,7 +16,7 @@ class UserService {
   async updatePicture(token: string, user: UserPicture) {
     const username = decodeToken(token) as unknown as State<string>;
     const userFound = (await userRepository.findUserByUsername(
-      username?.user
+      username?.user,
     )) as unknown as MongoUser;
 
     return userRepository.updatePicture(userFound?._id, user);

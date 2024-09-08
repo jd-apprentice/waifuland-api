@@ -3,7 +3,9 @@ version: "3.1"
 services:
   waifuland_api:
     container_name: waifuland_api
-    image: dyallo/waifuland-api
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     env_file:
       - .env

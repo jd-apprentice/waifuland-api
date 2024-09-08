@@ -1,8 +1,8 @@
 // External Modules
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 
 // Internal Modules
-import tagService from "./tag-service";
+import tagService from './tag-service';
 
 class TagController {
   /**
@@ -10,7 +10,6 @@ class TagController {
    * @type {Response} res object with the waifu
    * @returns { Promise<Response> } an array of tags
    */
-
   async getTags(req: Request, res: Response): Promise<Response> {
     try {
       const tags = await tagService.getTag();
@@ -22,11 +21,10 @@ class TagController {
 
   /**
    * @description Get all tags from the database
-   * @param { string } id - id of the tag
+   * @param { string } req.params.id - the id of the tag
    * @param { Response } res - object with the waifu
    * @returns { Promise<Response> } Tag by id
    */
-
   async getTagsId(req: Request, res: Response): Promise<Response> {
     try {
       const { id } = req.params;

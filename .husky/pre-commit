@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+bun run test
+bun run format
+bun run lint

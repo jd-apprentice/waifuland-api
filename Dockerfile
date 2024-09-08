@@ -1,15 +1,27 @@
-FROM node:lts-alpine as build-runner
-WORKDIR /tmp/app
-COPY package*.json ./
-RUN npm ci --ignore-scripts
-COPY src ./src
-COPY tsconfig*.json ./
-RUN npm run build
+FROM oven/bun:1 AS base
+WORKDIR /usr/src/app
 
-FROM node:lts-alpine as prod-runner
-WORKDIR /app
-COPY --from=build-runner /tmp/app/package*.json ./
-RUN npm ci --omit=dev --ignore-scripts
-COPY --from=build-runner /tmp/app/dist ./dist
-EXPOSE 4000
-CMD [ "node", "dist/app/index.js"]
+FROM base AS install
+RUN mkdir -p /temp/dev
+COPY package.json bun.lockb /temp/dev/
+RUN cd /temp/dev && bun install --frozen-lockfile
+
+RUN mkdir -p /temp/prod
+COPY package.json bun.lockb /temp/prod/
+RUN cd /temp/prod && bun install --frozen-lockfile --production
+
+FROM base AS prerelease
+COPY --from=install /temp/dev/node_modules node_modules
+COPY . .
+
+ENV NODE_ENV=production
+RUN bun test
+RUN bun run build
+
+FROM base AS release
+COPY --from=install /temp/prod/node_modules node_modules
+COPY --from=prerelease /usr/src/app/dist ./dist
+
+USER bun
+EXPOSE 4000/tcp
+ENTRYPOINT [ "bun", "run", "dist/app/index.js" ]

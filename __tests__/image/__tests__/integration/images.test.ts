@@ -1,10 +1,10 @@
-import { loadDatabase } from "../../../app/db";
-import Config from "../../../app/config/config";
-import { app } from "../../../app/main";
+import { loadDatabase } from "../../../../src/app/db";
+import Config from "../../../../src/app/config/config";
+import { app } from "../../../../src/app/main";
+import { jest, describe, test, beforeAll, expect, beforeEach } from "bun:test";
 
 import request from "supertest";
 import { Response } from "supertest";
-import { Server } from "http";
 
 const baseRoute = "/api/images";
 const contentTypeKey = "Content-Type";
@@ -27,14 +27,12 @@ export const image = {
 };
 
 describe("INTEGRATION - Images Module", () => {
-  let server: Server;
 
   beforeAll(async () => {
-    jest.resetModules();
+    jest.clearAllMocks();
   });
 
   beforeEach(async () => {
-    server = app.listen(Config.app.port);
     await loadDatabase(Config.db.uri);
   });
 
@@ -117,9 +115,6 @@ describe("INTEGRATION - Images Module", () => {
       });
   });
 
-  afterEach(() => {
-    server.close();
-  });
 });
 
 function expectImage(response: Response) {

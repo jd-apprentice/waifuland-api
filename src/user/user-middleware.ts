@@ -1,13 +1,13 @@
 // External Modules
-import boom, { Boom } from "@hapi/boom";
-import { NextFunction, Request, Response } from "express";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import boom, { Boom } from '@hapi/boom';
+import { NextFunction, Request, Response } from 'express';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 // Internal Modules
-import User from "./schema/user-schema";
-import Config from "../app/config/config";
-import { UsernameType } from "./interfaces/user-interface";
+import User from './schema/user-schema';
+import Config from '../app/config/config';
+import { UsernameType } from './interfaces/user-interface';
 
 /**
  * @description Validates if the user exist in the database
@@ -18,11 +18,11 @@ import { UsernameType } from "./interfaces/user-interface";
 const userExists = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<Boom | NextFunction | Response | unknown> => {
   const { username }: UsernameType = req.body;
   const user: UsernameType | null = await User.findOne({ username });
-  return user ? res.json(boom.conflict("User already exists")) : next();
+  return user ? res.json(boom.conflict('User already exists')) : next();
 };
 
 /**
@@ -35,7 +35,7 @@ const userExists = async (
 const validateUser = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<Boom | NextFunction | Response | unknown> => {
   try {
     const { username, password } = req.body;
@@ -44,9 +44,9 @@ const validateUser = async (
     const pass = userExists?.password;
     const isMatch = pass && (await bcrypt.compare(password, pass)); // Compare the password with the hash password
     const isValid = user && isMatch;
-    return isValid ? next() : res.json(boom.badRequest("Invalid credentials"));
+    return isValid ? next() : res.json(boom.badRequest('Invalid credentials'));
   } catch (error) {
-    return res.status(400) && res.json(boom.badRequest("Something went wrong"));
+    return res.status(400) && res.json(boom.badRequest('Something went wrong'));
   }
 };
 
@@ -59,14 +59,14 @@ const validateUser = async (
 const isAdmin = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<Boom | NextFunction | Response | unknown> => {
   try {
     const { username } = req.body;
     const user = await User.findOne({ username });
-    return user?.isAdmin ? next() : res.json(boom.unauthorized("Not admin"));
+    return user?.isAdmin ? next() : res.json(boom.unauthorized('Not admin'));
   } catch (error) {
-    return res.status(400) && res.json(boom.badRequest("User not found"));
+    return res.status(400) && res.json(boom.badRequest('User not found'));
   }
 };
 
@@ -79,18 +79,18 @@ const isAdmin = async (
 const validateToken = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<Boom | NextFunction | Response | unknown> => {
   const { secret } = Config.jwt;
   try {
     const { authorization } = req.headers;
-    const token = authorization?.replace("Bearer ", "");
+    const token = authorization?.replace('Bearer ', '');
     if (secret) {
       const decoded = jwt.verify(token as string, secret);
       return decoded ? next() : res.json(boom.unauthorized());
     }
   } catch (error) {
-    return res.status(401).json(boom.unauthorized("Invalid token"));
+    return res.status(401).json(boom.unauthorized('Invalid token'));
   }
 };
 

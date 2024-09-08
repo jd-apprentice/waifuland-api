@@ -1,5 +1,6 @@
-import { app } from '../main';
+import { app } from '../../../src/app/main';
 import request from 'supertest';
+import { describe, test, expect } from 'bun:test';
 
 const contentTypeKey = 'Content-Type';
 const contentTypeValue = /json/;
