@@ -4,7 +4,6 @@ import { app } from "../../../app/main";
 
 import request from "supertest";
 import { Response } from "supertest";
-import { Server } from "http";
 
 const baseRoute = "/api/images";
 const contentTypeKey = "Content-Type";
@@ -27,14 +26,13 @@ export const image = {
 };
 
 describe("INTEGRATION - Images Module", () => {
-  let server: Server;
+  let server: Express.Application;
 
   beforeAll(async () => {
     jest.resetModules();
   });
 
   beforeEach(async () => {
-    server = app.listen(Config.app.port);
     await loadDatabase(Config.db.uri);
   });
 
@@ -117,9 +115,6 @@ describe("INTEGRATION - Images Module", () => {
       });
   });
 
-  afterEach(() => {
-    server.close();
-  });
 });
 
 function expectImage(response: Response) {
