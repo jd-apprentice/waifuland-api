@@ -1,17 +1,17 @@
 // External Modules
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const cloudinary = require("cloudinary").v2;
-import { PathLike } from "fs";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
+const cloudinary = require('cloudinary').v2;
+import { PathLike } from 'fs';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import { LogArgument } from 'rollbar';
 
 // Internal Modules
-import { setConfig, setCloudinary } from "./config/cloud-config";
-import imageRepository from "./image-repository";
-import { IImage, ImageType } from "./interfaces/image-interface";
-import { Config, FileMulter } from "../common/interfaces/types";
-import { randomUrls } from "../common/utils/random";
-import { LogArgument } from "rollbar";
-import { rollbar } from "../app/config/rollbar";
+import { setConfig, setCloudinary } from './config/cloud-config';
+import imageRepository from './image-repository';
+import { IImage, ImageType } from './interfaces/image-interface';
+import { Config, FileMulter } from '../common/interfaces/types';
+import { randomUrls } from '../common/utils/random';
+import { rollbar } from '../app/config/rollbar';
 
 class ImageService {
   config: Config;
@@ -29,11 +29,10 @@ class ImageService {
    * @param {string} file_name - the name of the image
    * @returns {Promise<ImageType>} - ImageType response
    */
-
   async cloudinaryUpload(
     file: FileMulter | PathLike | string | undefined,
     folder?: string,
-    file_name?: string
+    file_name?: string,
   ): Promise<ImageType> {
     try {
       const response = await cloudinary.uploader.upload(file, {
@@ -54,7 +53,6 @@ class ImageService {
    * @param {IImage} newImage - The image to upload
    * @return {Promise<IImage>} - A result of uploading the image
    */
-
   async upload(newImage: IImage): Promise<IImage> {
     try {
       return imageRepository.create(newImage);
@@ -70,11 +68,10 @@ class ImageService {
    * @param {number} tag_id - the id from the tag to retrieve
    * @return { Promise<IImage[] | IImage> } An array of images or a individual image
    */
-
   async getImage(size?: number, tag_id?: number): Promise<IImage[] | IImage> {
     try {
       const images = await imageRepository.findImages(tag_id);
-      const urls = images.map((image) => {
+      const urls = images.map(image => {
         return {
           id: image.id,
           url: image.url,
@@ -98,7 +95,6 @@ class ImageService {
    * @implements { imageRepository.findImages } - the repository to get the images
    * @return { Promise<IImage[]> } An array of images without business logic
    */
-
   async getAllImages(tag_id?: number): Promise<IImage[]> {
     try {
       const images = await imageRepository.findImages(tag_id);

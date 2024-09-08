@@ -47,7 +47,6 @@ $ curl https://waifuland.jonathan.com.ar/api/images\?size\=5\&tag_id\=1 -H "Acce
 - Typescript
 - Multer
 - Cloudinary
-- Render
 - Mongodb
 - Mongoose
 
@@ -77,9 +76,9 @@ ROLLBAR_ENVIRONMENT=
 
 >> cp .env.example .env
 
->> npm install
+>> bun install
 
->> npm run dev
+>> bun run dev
 ```
 
 ## 🧱 Structure

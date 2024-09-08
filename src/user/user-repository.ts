@@ -1,6 +1,6 @@
 // Internal Modules
-import User from "../user/schema/user-schema";
-import { IUser, UserPicture } from "./interfaces/user-interface";
+import User from '../user/schema/user-schema';
+import { IUser, UserPicture } from './interfaces/user-interface';
 
 class UserRepository {
   /**
@@ -46,12 +46,12 @@ class UserRepository {
 
   async updatePicture(
     id: string,
-    picture: UserPicture
+    picture: UserPicture,
   ): Promise<UserPicture | null> {
     return User.findByIdAndUpdate(
       id,
       { profile_picture: picture },
-      { new: true }
+      { new: true },
     );
   }
 }

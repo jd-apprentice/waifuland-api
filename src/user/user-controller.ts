@@ -1,13 +1,13 @@
 // External Modules
-import bcrypt from "bcrypt";
-import { Request, Response } from "express";
+import bcrypt from 'bcrypt';
+import { Request, Response } from 'express';
 
 // Internal Modules
-import userService from "./user-service";
-import generateAccessToken from "../common/utils/generateToken";
-import clearTemporaryFiles from "../common/utils/clear";
-import imageService from "../image/image-service";
-import { UserPicture } from "./interfaces/user-interface";
+import userService from './user-service';
+import generateAccessToken from '../common/utils/generateToken';
+import clearTemporaryFiles from '../common/utils/clear';
+import imageService from '../image/image-service';
+import { UserPicture } from './interfaces/user-interface';
 
 class UserController {
   /**
@@ -42,7 +42,7 @@ class UserController {
       });
       await newUser.save();
       return res.json({
-        message: "User created successfully",
+        message: 'User created successfully',
       });
     } catch (error) {
       return res.json(error);
@@ -91,7 +91,7 @@ class UserController {
   async getUserInfo(req: Request, res: Response): Promise<Response> {
     try {
       const { authorization } = req.headers;
-      const token = authorization?.replace("Bearer ", "");
+      const token = authorization?.replace('Bearer ', '');
       const user = await userService.getUserInfo(token as string);
       return res.json({
         username: user?.username,
@@ -115,21 +115,21 @@ class UserController {
     try {
       const { file } = req;
       const { authorization } = req.headers;
-      const token = authorization?.replace("Bearer ", "") as string;
+      const token = authorization?.replace('Bearer ', '') as string;
       const findUser = await userService.getUserByToken(token);
       const image = await imageService.cloudinaryUpload(
         file?.path,
         findUser?._id,
-        findUser?.username
+        findUser?.username,
       );
       const { secure_url } = image;
-      clearTemporaryFiles(file?.path ?? "image/assets/images");
+      clearTemporaryFiles(file?.path ?? 'image/assets/images');
       const user = await userService.updatePicture(
         token,
-        secure_url as UserPicture
+        secure_url as UserPicture,
       );
       return res.json({
-        message: "Profile picture updated",
+        message: 'Profile picture updated',
         picture: user?.profile_picture,
       });
     } catch (error) {

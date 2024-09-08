@@ -1,18 +1,17 @@
 // External Modules
-import { FindCursor } from "mongodb";
+import { FindCursor } from 'mongodb';
+import { LogArgument } from 'rollbar';
 
 // Internal Modules
-import tagRepository from "./tag-repository";
-import { ITag } from "./intefaces/tag-interface";
-import { LogArgument } from "rollbar";
-import { rollbar } from "../app/config/rollbar";
+import tagRepository from './tag-repository';
+import { ITag } from './intefaces/tag-interface';
+import { rollbar } from '../app/config/rollbar';
 
 class TagService {
   /**
    * @description Get all tags from the database
    * @return {Promise<Tag[]>} - An array of tags
    */
-
   async getTag(): Promise<ITag[]> {
     try {
       return tagRepository.findTags();
@@ -27,7 +26,6 @@ class TagService {
    * @param id - The id of the entity
    * @returns {Promise<FindCursor | null>} - One single tag
    */
-
   async getTagById(id: string): Promise<FindCursor | null> {
     try {
       return tagRepository.findByTagId(id);
