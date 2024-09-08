@@ -1,6 +1,7 @@
-import { loadDatabase } from "../../../app/db";
-import Config from "../../../app/config/config";
-import { app } from "../../../app/main";
+import { loadDatabase } from "../../../../src/app/db";
+import Config from "../../../../src/app/config/config";
+import { app } from "../../../../src/app/main";
+import { jest, describe, test, beforeAll, expect, beforeEach } from "bun:test";
 
 import request from "supertest";
 import { Response } from "supertest";
@@ -26,10 +27,9 @@ export const image = {
 };
 
 describe("INTEGRATION - Images Module", () => {
-  let server: Express.Application;
 
   beforeAll(async () => {
-    jest.resetModules();
+    jest.clearAllMocks();
   });
 
   beforeEach(async () => {
