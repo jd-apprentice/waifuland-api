@@ -45,6 +45,7 @@ jobs:
           echo NODE_ENV=TEST >> .env
           echo ROLLBAR_TOKEN="${{ secrets.ROLLBAR_TOKEN }}" >> .env
           echo ROLLBAR_ENVIRONMENT=development >> .env
+          echo TOKEN="${{ secrets.TOKEN }}" >> .env
           bun install
           bun test
 
