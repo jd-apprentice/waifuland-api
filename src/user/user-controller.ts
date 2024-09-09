@@ -15,7 +15,6 @@ class UserController {
    * @param { Response } res object
    * @returns { Promise<Response> } All users from the database without business logic
    */
-
   async getUsers(req: Request, res: Response): Promise<Response> {
     try {
       const users = await userService.findUsers();
@@ -31,7 +30,6 @@ class UserController {
    * @param {string} req.body.password - password of the user
    * @returns {Promise<Response>} A success message that the user was created
    */
-
   async createUser(req: Request, res: Response): Promise<Response> {
     try {
       const { username, password } = req.body;
@@ -54,7 +52,6 @@ class UserController {
    * @param {string} req.body.username - username of the user
    * @returns {Promise<Response>} Json response with the token
    */
-
   async login(req: Request, res: Response): Promise<Response> {
     try {
       const { username } = req.body;
@@ -71,7 +68,6 @@ class UserController {
    * @param {string} req.params.id - username of the user
    * @returns {Promise<Response>} Json response with the user
    */
-
   async getUser(req: Request, res: Response): Promise<Response> {
     try {
       const { id } = req.params;
@@ -87,7 +83,6 @@ class UserController {
    * @param {string} req.headers.token - token of the user
    * @returns {Promise<Response>} Json response with the user
    */
-
   async getUserInfo(req: Request, res: Response): Promise<Response> {
     try {
       const { authorization } = req.headers;
@@ -110,7 +105,6 @@ class UserController {
    * @param {string} req.headers.authorization - token of the user
    * @returns { Promise<Response> } Json response with the updated user
    */
-
   async updatePicture(req: Request, res: Response): Promise<Response> {
     try {
       const { file } = req;
