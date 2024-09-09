@@ -6,7 +6,7 @@ const contentTypeKey = 'Content-Type';
 const contentTypeValue = /json/;
 const httpSuccess = 200;
 
-describe('App Module', () => {
+describe('INTEGRATION - App Module', () => {
 
     test('GET / - when asking for the root route should return 200 and catch all message', async () => {
         await request(app)

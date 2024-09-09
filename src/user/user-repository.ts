@@ -7,7 +7,6 @@ class UserRepository {
    * @description Create a new user
    * @param {Iuser} user - user to be created
    */
-
   async create(user: IUser) {
     return User.create(user);
   }
@@ -16,7 +15,6 @@ class UserRepository {
    * @description Find users
    * @return {Promise<IUser[]>} - An array of users
    */
-
   async findUsers(): Promise<IUser[]> {
     return User.find();
   }
@@ -25,7 +23,6 @@ class UserRepository {
    * @description Find a user by id
    * @param {string} id - id of the user
    */
-
   async findUser(id: string): Promise<IUser | null> {
     return User.findOne({ _id: id });
   }
@@ -34,7 +31,6 @@ class UserRepository {
    * @description Find a user by username
    * @param {string} username - username of the user
    */
-
   async findUserByUsername(username: string): Promise<IUser | null> {
     return User.findOne({ username });
   }
@@ -43,7 +39,6 @@ class UserRepository {
    * @description Update user profile picture
    * @return { Promise<UserPicture> } - A result of updating the user
    */
-
   async updatePicture(
     id: string,
     picture: UserPicture,

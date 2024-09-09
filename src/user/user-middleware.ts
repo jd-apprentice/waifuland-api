@@ -14,7 +14,6 @@ import { UsernameType } from './interfaces/user-interface';
  * @param {string} req.body.username - the username to check
  * @returns {Response<Boom | NextFunction>} Response with the next function
  */
-
 const userExists = async (
   req: Request,
   res: Response,
@@ -31,7 +30,6 @@ const userExists = async (
  * @param {string} req.body.password - the password to validate
  * @returns {Response<Boom | NextFunction} if the username && password match then next() else return an error
  */
-
 const validateUser = async (
   req: Request,
   res: Response,
@@ -55,7 +53,6 @@ const validateUser = async (
  * @param {string} req.body.username - the username to validate
  * @returns {Promise<Boom | NextFunction | Response | unknown>} if the user is admin then next() else return an error
  */
-
 const isAdmin = async (
   req: Request,
   res: Response,
@@ -75,7 +72,6 @@ const isAdmin = async (
  * @param {Authorization} req.headers - Authorization header with the token
  * @returns {Response<Boom | NextFunction>} Authorization error or next
  */
-
 const validateToken = async (
   req: Request,
   res: Response,
