@@ -1,0 +1,12 @@
+include <tunables/global>
+include <abstractions/base>
+
+/usr/src/app {
+	deny capability sys_admin,
+	/usr/src/app/** ix,
+}
+
+/dist {
+	deny capability sys_admin,
+	/dist/** ix,
+}

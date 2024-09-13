@@ -1,0 +1,25 @@
+services:
+  waifuland:
+    container_name: waifuland
+    ## https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html
+    security_opt:
+      - seccomp:seccomp.json
+      - apparmor:non-root-profile
+      - no-new-privileges:true
+    build:
+        context: ../
+        dockerfile: docker/Dockerfile
+    ## https://dockerlabs.collabnix.com/advanced/security/capabilities/
+    cap_add: ["DAC_OVERRIDE"]
+    cap_drop: ["ALL"]
+    restart: always
+    env_file:
+      - ../.env
+    ports:
+      - 4000:4000
+    networks:
+      - waifuland
+
+networks:
+    waifuland:
+        driver: bridge
