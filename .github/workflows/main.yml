@@ -63,7 +63,7 @@ jobs:
 
   build:
     runs-on: ubuntu-22.04
-    needs: [codacy]
+    needs: [gitleaks, test]
     if: ${{ github.ref_name == 'master' }}
     steps:
       - name: Checkout
