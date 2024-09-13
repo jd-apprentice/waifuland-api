@@ -19,6 +19,8 @@ on:
 
 env:
   BRANCH_NAME: ${{ github.ref_name }}
+  APP_NAME: waifuland_api
+  APP_VERSION: latest
 
 jobs:
   gitleaks:
@@ -37,6 +39,7 @@ jobs:
         with:
           bun-version: latest
 
+      ## TODO: Add envs for cloudinary
       - name: install dependencies and test
         run: |
           touch .env
@@ -50,6 +53,7 @@ jobs:
           bun test
 
   codacy:
+    if: ${{ github.event_name == 'pull_request' }}
     uses: jd-apprentice/jd-workflows/.github/workflows/codacy.yml@main
     needs: [gitleaks, test]
     with:
@@ -77,7 +81,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/waifuland-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
+          platforms: linux/amd64,linux/arm64
