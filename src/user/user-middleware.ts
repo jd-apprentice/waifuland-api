@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 // Internal Modules
 import User from './schema/user-schema';
-import Config from '../app/config/config';
+import { Config } from '../app/config/config';
 import { UsernameType } from './interfaces/user-interface';
 
 /**

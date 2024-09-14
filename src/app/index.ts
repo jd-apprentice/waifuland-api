@@ -1,10 +1,10 @@
 import { app } from './main';
 import { loadDatabase } from './db';
-import Config from './config/config';
+import { Config } from './config/config';
 
 app.listen(Config.app.port || 4000, async () => {
   await loadDatabase(Config.db.uri);
-  console.log(`
+  console.info(`
         ██╗    ██╗ █████╗ ██╗███████╗██╗   ██╗██╗      █████╗ ███╗   ██╗██████╗      █████╗ ██████╗ ██╗
         ██║    ██║██╔══██╗██║██╔════╝██║   ██║██║     ██╔══██╗████╗  ██║██╔══██╗    ██╔══██╗██╔══██╗██║
         ██║ █╗ ██║███████║██║█████╗  ██║   ██║██║     ███████║██╔██╗ ██║██║  ██║    ███████║██████╔╝██║

@@ -2,7 +2,7 @@
 import jwt from "jsonwebtoken";
 
 // Internal Modules
-import Config from "../../app/config/config";
+import { Config } from "../../app/config/config";
 
 /**
  * @description Signs a token

@@ -1,5 +1,5 @@
 import { app } from '../../../src/app/main';
-import Config from "../../../src/app/config/config";
+import { Config } from "../../../src/app/config/config";
 import { loadDatabase } from "../../../src/app/db/index";
 import generateToken from '../../../src/common/utils/generateToken';
 

@@ -11,7 +11,7 @@ const {
   ROLLBAR_ENVIRONMENT,
 } = process.env;
 
-const Config = {
+export const Config = {
   app: {
     port: PORT,
     environment: NODE_ENV,
@@ -33,5 +33,3 @@ const Config = {
     environment: ROLLBAR_ENVIRONMENT,
   }
 };
-
-export default Config;
