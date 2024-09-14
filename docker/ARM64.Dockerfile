@@ -16,7 +16,7 @@ COPY . .
 
 ENV NODE_ENV=production
 RUN bun run lint
-RUN bun run build
+RUN bun run build:arm
 
 FROM base AS release
 COPY --from=install /temp/prod/node_modules node_modules
