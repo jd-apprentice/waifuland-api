@@ -22,9 +22,9 @@ FROM base AS release
 COPY --from=install /temp/prod/node_modules node_modules
 COPY --from=prerelease /bun/dist ./dist
 
-RUN mkdir -p /usr/src/app/src/image/assets/images
-RUN chown -R bun:bun /usr/src/app/src/image/assets/images
-RUN chmod -R 600 /usr/src/app/src/image/assets/images
+RUN mkdir -p /bun/src/image/assets/images
+RUN chown -R bun:bun /bun/src/image/assets/images
+RUN chmod -R 600 /bun/src/image/assets/images
 
 USER bun
 EXPOSE 4000
