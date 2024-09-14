@@ -24,4 +24,4 @@ COPY --from=prerelease /bun/dist ./dist
 
 USER bun
 EXPOSE 4000
-ENTRYPOINT [ "bun", "dist/index.js" ]
+ENTRYPOINT [ "dist/waifuland" ]

@@ -7,8 +7,8 @@
   "type": "module",
   "scripts": {
     "prebuild": "rm -rf dist",
-    "build": "bun build src/app/index.ts --compile --target=bun-linux-x64 --minify --outfile dist/index.js",
-    "build:arm": "bun build src/app/index.ts --compile --target=bun-linux-arm64 --outfile dist/index.js",
+    "build": "bun build src/app/index.ts --compile --target=bun-linux-x64 --minify --outfile dist/waifuland",
+    "build:arm": "bun build src/app/index.ts --compile --target=bun-linux-arm64 --outfile dist/waifuland",
     "dev": "NODE_ENV=development bun --watch src/app/index.ts",
     "start": "NODE_ENV=production bun dist/index.js",
     "lint": "eslint ./src/**/*.ts",
