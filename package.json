@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "jd-apprentice",
   "license": "MIT",
-  "main": "dist/app/index.js",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "prebuild": "rm -rf dist",
