@@ -14,7 +14,7 @@ FROM base AS prerelease
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
-ENV NODE_ENV=production
+ENV NODE_ENV=test
 RUN bun run lint
 RUN bun run build:arm
 

@@ -1,5 +1,5 @@
 import { loadDatabase } from "../../../../src/app/db";
-import Config from "../../../../src/app/config/config";
+import { Config } from "../../../../src/app/config/config";
 import { app } from "../../../../src/app/main";
 import { jest, describe, test, beforeAll, expect, beforeEach } from "bun:test";
 

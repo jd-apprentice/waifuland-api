@@ -32,23 +32,18 @@ $ curl https://waifuland.jonathan.com.ar/api/images -H "Accept: application/json
 $ curl https://waifuland.jonathan.com.ar/api/images\?size\=5\&tag_id\=1 -H "Accept: application/json"
 ```
 
-## 📖 Status
-
-- Want to see how the project is going? check this -> [Issue](https://github.com/jd-apprentice/waifuland-api/issues/3)
-
-## 🌐 Can I use the api?
-
-- Yes! is currently being hosted in DigitalOcean -> [Get waifu](https://waifuland.jonathan.com.ar/api/images)
 
 ## 📚 Stack
 
-- Nodejs
+- Bunjs
 - Express
 - Typescript
 - Multer
 - Cloudinary
 - Mongodb
 - Mongoose
+- Rollbar
+- Husky
 
 ## 🏗️ Build the project locally
 
