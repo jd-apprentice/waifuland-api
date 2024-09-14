@@ -1,0 +1,15 @@
+meta {
+  name: random_image_with_size
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}{{base_path}}/images?size=3
+  body: none
+  auth: none
+}
+
+query {
+  size: 3
+}
