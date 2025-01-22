@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f waifuland.yml convert
+    kompose.version: 1.34.0 (cbf2835db)
+  labels:
+    io.kompose.service: waifuland-prod
+  name: waifuland-prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      io.kompose.service: waifuland-prod
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f waifuland.yml convert
+        kompose.version: 1.34.0 (cbf2835db)
+      labels:
+        io.kompose.service: waifuland-prod
+    spec:
+      containers:
+        - env:
+            - name: CLOUDINARY_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CLOUDINARY_URL
+                  name: env
+            - name: CLOUD_API_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: CLOUD_API_KEY
+                  name: env
+            - name: CLOUD_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: CLOUD_NAME
+                  name: env
+            - name: CLOUD_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: CLOUD_SECRET
+                  name: env
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_HOST
+                  name: env
+            - name: ROLLBAR_ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  key: ROLLBAR_ENVIRONMENT
+                  name: env
+            - name: ROLLBAR_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  key: ROLLBAR_TOKEN
+                  name: env
+            - name: TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  key: TOKEN
+                  name: env
+          image: dyallo/waifuland_api:X64_latest
+          name: waifuland-prod
+          ports:
+            - containerPort: 4000
+              protocol: TCP
+      restartPolicy: Always

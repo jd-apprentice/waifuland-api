@@ -1,0 +1,15 @@
+apiVersion: v1
+data:
+  CLOUD_API_KEY: $ARGOCD_CLOUD_API_KEY
+  CLOUD_NAME: $ARGOCD_CLOUD_NAME
+  CLOUD_SECRET: $ARGOCD_CLOUD_SECRET
+  CLOUDINARY_URL: $ARGOCD_CLOUDINARY_URL
+  DB_HOST: $ARGOCD_DB_HOST
+  ROLLBAR_ENVIRONMENT: production
+  ROLLBAR_TOKEN: $ARGOCD_ROLLBAR_TOKEN
+  TOKEN: $ARGOCD_TOKEN
+kind: ConfigMap
+metadata:
+  labels:
+    io.kompose.service: waifuland-prod-env
+  name: env
