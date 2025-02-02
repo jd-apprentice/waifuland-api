@@ -27,7 +27,6 @@ env:
 jobs:
   gitleaks:
     uses: jd-apprentice/jd-workflows/.github/workflows/gitleaks.yml@main
-    if: ${{ github.event_name == 'pull_request' }}
     with:
       runs-on: ubuntu-latest
       name: Gitleaks
@@ -36,7 +35,6 @@ jobs:
 
   test:
     runs-on: ubuntu-22.04
-    if: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
@@ -57,7 +55,6 @@ jobs:
           bun test
 
   codacy:
-    if: ${{ github.event_name == 'pull_request' }}
     uses: jd-apprentice/jd-workflows/.github/workflows/codacy.yml@main
     needs: [gitleaks, test]
     with:
