@@ -3,6 +3,11 @@ import { loadDatabase } from './db';
 import { Config } from './config/config';
 
 app.listen(Config.app.port || 4000, async () => {
+  if (!Config.db.uri) {
+    console.error('Database URI not found');
+    process.exit(1);
+  }
+
   await loadDatabase(Config.db.uri);
   console.info(`
         ██╗    ██╗ █████╗ ██╗███████╗██╗   ██╗██╗      █████╗ ███╗   ██╗██████╗      █████╗ ██████╗ ██╗
