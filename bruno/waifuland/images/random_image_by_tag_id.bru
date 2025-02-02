@@ -1,0 +1,24 @@
+meta {
+  name: random_image_by_tag_id
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}{{base_path}}/images?tag_id=2
+  body: none
+  auth: none
+}
+
+query {
+  tag_id: 2
+}
+
+docs {
+  Available tags are
+  
+  1. Waifu
+  2. Neko
+  3. Happy
+  4. Sad
+}

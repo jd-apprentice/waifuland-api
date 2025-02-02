@@ -1,0 +1,16 @@
+meta {
+  name: random_image_by_tag_and_size
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}}{{base_path}}/images?size=2&tag_id=1
+  body: none
+  auth: none
+}
+
+query {
+  size: 2
+  tag_id: 1
+}

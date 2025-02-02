@@ -1,0 +1,19 @@
+meta {
+  name: random_image
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}{{base_path}}/images
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.url: contains res.cloudinary
+  res.body.is_nsfw: isDefined
+  res.body.tag: isDefined
+  res.body.url: isDefined 
+}

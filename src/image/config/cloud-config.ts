@@ -4,7 +4,7 @@ const cloudinary = require("cloudinary").v2;
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 // Internal Modules
-import { Config } from "../../app/config/config";
+import { Config } from "src/app/config/config";
 
 function setConfig() {
   return cloudinary.config({
