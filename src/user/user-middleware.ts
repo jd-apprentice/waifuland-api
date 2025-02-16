@@ -60,7 +60,7 @@ const isAdmin = async (
 ): Promise<Boom | NextFunction | Response | unknown> => {
   try {
     const { username } = req.body;
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username: { $eq: username } });
     return user?.isAdmin ? next() : res.json(boom.unauthorized('Not admin'));
   } catch (error) {
     return res.status(400) && res.json(boom.badRequest('User not found'));
