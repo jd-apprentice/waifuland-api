@@ -10,7 +10,7 @@ const contentTypeKey = 'Content-Type';
 const contentTypeValue = /json/;
 const httpSuccess = 200;
 const httpUnauthorized = 401;
-const baseRoute = "/api/user";
+const baseRoute = "/v1/api/user";
 
 const userResponse = {
     _id: expect.any(String),

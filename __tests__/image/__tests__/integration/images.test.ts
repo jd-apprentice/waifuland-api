@@ -6,7 +6,7 @@ import { jest, describe, test, beforeAll, expect, beforeEach } from "bun:test";
 import request from "supertest";
 import { Response } from "supertest";
 
-const baseRoute = "/api/images";
+const baseRoute = "/v1/api/images";
 const contentTypeKey = "Content-Type";
 const contentTypeValue = /json/;
 const httpSuccess = 200;

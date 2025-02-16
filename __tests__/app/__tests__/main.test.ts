@@ -18,9 +18,9 @@ describe('INTEGRATION - App Module', () => {
             })
     });
 
-    test('GET /api - when asking for the api route should return 200 and api message', async () => {
+    test('GET /v1/api - when asking for the api route should return 200 and api message', async () => {
         await request(app)
-            .get('/api')
+            .get('/v1/api')
             .expect(contentTypeKey, contentTypeValue)
             .expect(httpSuccess)
             .then((response) => {
