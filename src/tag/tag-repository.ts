@@ -20,7 +20,7 @@ class TagRepository {
    * @returns {Promise<FindCursor | null>} - One single tag
    */
   async findByTagId(tagId: string): Promise<FindCursor | null> {
-    return Tag.findOne({ tag_id: tagId });
+    return Tag.findOne({ tag_id: { $eq: tagId } });
   }
 }
 
