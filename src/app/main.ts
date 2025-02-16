@@ -5,14 +5,15 @@ import cors from 'cors';
 
 // Internal Modules
 import { routes } from './routes/index';
+import { corsConfiguration } from './constants/cors';
 
 // Express
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors(corsConfiguration));
 app.use(helmet());
-app.use('/api', routes);
+app.use('/v1/api', routes);
 app.use('/', (req, res) =>
   res.status(200).json({ message: 'Allo! Catch-all route.' }),
 );
