@@ -20,7 +20,7 @@ const userExists = async (
   next: NextFunction,
 ): Promise<Boom | NextFunction | Response | unknown> => {
   const { username }: UsernameType = req.body;
-  const user: UsernameType | null = await User.findOne({ username });
+  const user: UsernameType | null = await User.findOne({ username: { $eq: username } });
   return user ? res.json(boom.conflict('User already exists')) : next();
 };
 
@@ -37,7 +37,7 @@ const validateUser = async (
 ): Promise<Boom | NextFunction | Response | unknown> => {
   try {
     const { username, password } = req.body;
-    const userExists = await User.findOne({ username });
+    const userExists = await User.findOne({ username: { $eq: username } });
     const user = userExists?.username;
     const pass = userExists?.password;
     const isMatch = pass && (await bcrypt.compare(password, pass)); // Compare the password with the hash password
@@ -60,7 +60,7 @@ const isAdmin = async (
 ): Promise<Boom | NextFunction | Response | unknown> => {
   try {
     const { username } = req.body;
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username: { $eq: username } });
     return user?.isAdmin ? next() : res.json(boom.unauthorized('Not admin'));
   } catch (error) {
     return res.status(400) && res.json(boom.badRequest('User not found'));

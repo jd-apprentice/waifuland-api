@@ -11,7 +11,7 @@ class ImageRepository {
    * @return { Promise<IImage> } - A new image created
    */
   async create(image: IImage): Promise<IImage> {
-    const tagExists = await Tag.findOne({ tag_id: image.tag.tag_id });
+    const tagExists = await Tag.findOne({ tag_id: { $eq: image.tag } });
     const _idTag = tagExists?._id;
     return Image.create({
       ...image,

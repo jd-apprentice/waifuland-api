@@ -54,14 +54,6 @@ jobs:
           bun install
           bun test
 
-  codacy:
-    uses: jd-apprentice/jd-workflows/.github/workflows/codacy.yml@main
-    needs: [gitleaks, test]
-    with:
-      name: Codacy
-    secrets:
-      project_token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-
   dev:
     runs-on: ubuntu-latest
     needs: [gitleaks, test]

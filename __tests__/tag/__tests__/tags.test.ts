@@ -8,7 +8,7 @@ import { describe, test, expect, beforeAll, jest, beforeEach } from 'bun:test';
 const contentTypeKey = 'Content-Type';
 const contentTypeValue = /json/;
 const httpSuccess = 200;
-const baseRoute = "/api/tags";
+const baseRoute = "/v1/api/tags";
 
 const tagResponse = {
     _id: expect.any(String),

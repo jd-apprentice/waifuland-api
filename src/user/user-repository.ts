@@ -24,7 +24,7 @@ class UserRepository {
    * @param {string} id - id of the user
    */
   async findUser(id: string): Promise<IUser | null> {
-    return User.findOne({ _id: id });
+    return User.findOne({ _id: { $eq: id } });
   }
 
   /**
@@ -32,7 +32,7 @@ class UserRepository {
    * @param {string} username - username of the user
    */
   async findUserByUsername(username: string): Promise<IUser | null> {
-    return User.findOne({ username });
+    return User.findOne({ username: { $eq: username } });
   }
 
   /**
