@@ -15,7 +15,10 @@ const clearTemporaryFiles = (filepath: PathLike): void => {
     throw new Error("Invalid file path");
   }
   unlink(resolvedPath, (err: unknown) => {
-    if (err) throw err;
+    if (err) {
+      console.error(`Failed to delete file: ${resolvedPath}`, err);
+      return;
+    }
   });
 };
 
