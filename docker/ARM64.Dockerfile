@@ -12,7 +12,7 @@ RUN cd /temp/prod && bun install --frozen-lockfile --production
 
 FROM base AS prerelease
 COPY --from=install /temp/dev/node_modules node_modules
-COPY ./src ./src
+COPY . .
 
 ENV NODE_ENV=test
 RUN bun run lint && \
@@ -23,8 +23,8 @@ COPY --from=install /temp/prod/node_modules node_modules
 COPY --from=prerelease /bun/dist ./dist
 
 RUN mkdir -p /bun/src/image/assets/images
-RUN chown -R bun:bun /bun/src/image/assets/images && \
-    chmod -R 600 /bun/src/image/assets/images
+RUN chown -R bun:bun /bun/src/image/assets/images
+RUN chmod -R 600 /bun/src/image/assets/images
 
 USER bun
 EXPOSE 4000
