@@ -15,8 +15,8 @@ COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
 ENV NODE_ENV=test
-RUN bun run lint
-RUN bun run build:arm
+RUN bun run lint && \
+    bun run build:arm
 
 FROM base AS release
 COPY --from=install /temp/prod/node_modules node_modules

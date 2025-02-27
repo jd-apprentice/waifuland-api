@@ -9,8 +9,6 @@ import { limiter } from 'src/common/utils/limiter';
 
 const userRouter = Router();
 
-
-
 userRouter.get('/', limiter, validateToken, userController.getUsers);
 userRouter.get('/info', limiter, validateToken, userController.getUserInfo);
 userRouter.post('/login', limiter, validateUser, userController.login);

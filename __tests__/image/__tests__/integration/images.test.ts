@@ -2,9 +2,7 @@ import { loadDatabase } from "../../../../src/app/db";
 import { Config } from "../../../../src/app/config/config";
 import { app } from "../../../../src/app/main";
 import { jest, describe, test, beforeAll, expect, beforeEach } from "bun:test";
-
-import request from "supertest";
-import { Response } from "supertest";
+import request, { Response } from "supertest";
 
 const baseRoute = "/v1/api/images";
 const contentTypeKey = "Content-Type";

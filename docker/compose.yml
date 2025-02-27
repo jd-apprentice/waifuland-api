@@ -5,13 +5,13 @@ services:
     security_opt:
       - seccomp:seccomp.json
       - apparmor:non-root-profile
-      - no-new-privileges:true
+      - no-new-privileges
     build:
-        context: ../
-        dockerfile: docker/Dockerfile
+      context: ../
+      dockerfile: docker/Dockerfile
     ## https://dockerlabs.collabnix.com/advanced/security/capabilities/
-    cap_add: ["DAC_OVERRIDE"]
-    cap_drop: ["ALL"]
+    cap_add: [ "DAC_OVERRIDE" ]
+    cap_drop: [ "ALL" ]
     restart: always
     env_file:
       - ../.env
@@ -21,5 +21,5 @@ services:
       - waifuland
 
 networks:
-    waifuland:
-        driver: bridge
+  waifuland:
+    driver: bridge
