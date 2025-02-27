@@ -20,7 +20,9 @@ const userExists = async (
   next: NextFunction,
 ): Promise<Boom | NextFunction | Response | unknown> => {
   const { username }: UsernameType = req.body;
-  const user: UsernameType | null = await User.findOne({ username: { $eq: username } });
+  const user: UsernameType | null = await User.findOne({
+    username: { $eq: username },
+  });
   return user ? res.json(boom.conflict('User already exists')) : next();
 };
 

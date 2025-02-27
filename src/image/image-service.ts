@@ -55,7 +55,8 @@ class ImageService {
    */
   async upload(newImage: IImage): Promise<IImage> {
     try {
-      return imageRepository.create(newImage);
+      const response = await imageRepository.create(newImage);
+      return response;
     } catch (error: unknown) {
       rollbar.error(error as LogArgument);
       throw new Error((<Error>error).message);

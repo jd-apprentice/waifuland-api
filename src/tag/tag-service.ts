@@ -14,7 +14,8 @@ class TagService {
    */
   async getTag(): Promise<ITag[]> {
     try {
-      return tagRepository.findTags();
+      const tags = await tagRepository.findTags();
+      return tags;
     } catch (error: unknown) {
       rollbar.error(error as LogArgument);
       throw new Error((<Error>error).message);
@@ -28,7 +29,8 @@ class TagService {
    */
   async getTagById(id: string): Promise<FindCursor | null> {
     try {
-      return tagRepository.findByTagId(id);
+      const tag = await tagRepository.findByTagId(id);
+      return tag;
     } catch (error: unknown) {
       rollbar.error(error as LogArgument);
       throw new Error((<Error>error).message);
