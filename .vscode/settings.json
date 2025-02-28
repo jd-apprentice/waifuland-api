@@ -1,3 +1,7 @@
 {
     "editor.formatOnSave": true,
+    "sonarlint.connectedMode.project": {
+        "connectionId": "dyallab",
+        "projectKey": "jd-apprentice_waifuland-api"
+    },
 }
