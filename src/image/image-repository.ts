@@ -15,7 +15,6 @@ class ImageRepository {
    * @return { Promise<ImageProp> } - A new image created
    */
   async create(image: ImageProp): Promise<ImageProp> {
-
     const sanitizedTagId = image.tag.tag_id?.toString();
     if (!Types.ObjectId.isValid(image.tag.tag_id)) {
       throw new Error('Invalid tag id');
