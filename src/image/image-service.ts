@@ -80,7 +80,7 @@ class ImageService {
           tag: image.tag,
         };
       });
-      const randomArray = urls.sort(randomUrls);
+      const randomArray = urls.toSorted(randomUrls);
       const sizeArray = randomArray.slice(0, size);
       const randomUrl = urls[Math.floor(Math.random() * urls.length)];
       return size === undefined || null ? randomUrl : sizeArray;

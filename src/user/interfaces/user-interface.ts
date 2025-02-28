@@ -1,3 +1,6 @@
+import { Boom } from "@hapi/boom";
+import { NextFunction, Response } from "express";
+
 export interface UsernameType {
   username: string;
 }
@@ -22,3 +25,5 @@ export type UserPicture = Omit<
   IUser,
   "username" | "password" | "save" | "isAdmin"
 >;
+
+export type MiddlewareUser = Boom | NextFunction | Response | void;

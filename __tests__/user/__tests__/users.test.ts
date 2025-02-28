@@ -1,10 +1,12 @@
-import { app } from '../../../src/app/main';
-import { Config } from "../../../src/app/config/config";
-import { loadDatabase } from "../../../src/app/db/index";
-import generateToken from '../../../src/common/utils/generateToken';
-
+// External Modules
 import request from 'supertest';
 import { describe, test, expect, beforeAll, jest, beforeEach } from 'bun:test';
+
+// Internal Modules
+import generateToken from 'src/common/utils/generateToken';
+import { Config } from 'src/app/config/config';
+import { loadDatabase } from 'src/app/db';
+import { app } from 'src/app/main';
 
 const contentTypeKey = 'Content-Type';
 const contentTypeValue = /json/;
@@ -46,7 +48,7 @@ describe('INTEGRATION - User Module', () => {
                         {
                             statusCode: httpUnauthorized,
                             error: "Unauthorized",
-                            message: "Invalid token"
+                            message: "Unauthorized"
                         }
                     );
             })

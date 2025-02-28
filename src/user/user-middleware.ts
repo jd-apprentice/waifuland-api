@@ -1,76 +1,97 @@
 // External Modules
-import boom, { Boom } from '@hapi/boom';
+import boom from '@hapi/boom';
 import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { LogArgument } from 'rollbar';
 
 // Internal Modules
 import User from './schema/user-schema';
-import { Config } from '../app/config/config';
-import { UsernameType } from './interfaces/user-interface';
+import { Config } from 'src/app/config/config';
+import { rollbar } from 'src/app/config/rollbar';
+import { MiddlewareUser } from './interfaces/user-interface';
 
 /**
- * @description Validates if the user exist in the database
+ * Checks if a user with the given username already exists in the database
+ * @param {Object} req.body - request body containing the username
  * @param {string} req.body.username - the username to check
- * @returns {Response<Boom | NextFunction>} Response with the next function
+ * @param {Response} res - response object
+ * @param {NextFunction} next - next function
+ * @returns {Promise<MiddlewareUser | NextFunction>}
  */
 const userExists = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Boom | NextFunction | Response | unknown> => {
-  const { username }: UsernameType = req.body;
-  const user: UsernameType | null = await User.findOne({
-    username: { $eq: username },
-  });
-  return user ? res.json(boom.conflict('User already exists')) : next();
+): Promise<MiddlewareUser> => {
+  const { username } = req.body;
+
+  try {
+    const user = await User.findOne({ username: { $eq: username } });
+
+    if (user) {
+      return res.status(409).json({ error: 'User already exists' });
+    }
+
+    return next();
+  } catch (error: unknown) {
+    rollbar.error(error as LogArgument);
+    return res.status(500).json({ error });
+  }
 };
 
 /**
  * @description Validates the user username & password of the request body
  * @param {string} req.body.username - the username to validate
  * @param {string} req.body.password - the password to validate
- * @returns {Response<Boom | NextFunction} if the username && password match then next() else return an error
+ * @returns {Promise<MiddlewareUser | NextFunction>} if the username & password match, then next() else return an error
  */
 const validateUser = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Boom | NextFunction | Response | unknown> => {
+): Promise<MiddlewareUser> => {
   try {
     const { username, password } = req.body;
-    const userExists = await User.findOne({ username: { $eq: username } });
-    const user = userExists?.username;
-    const pass = userExists?.password;
-    const isMatch = pass && (await bcrypt.compare(password, pass)); // Compare the password with the hash password
-    const isValid = user && isMatch;
-    return isValid ? next() : res.json(boom.badRequest('Invalid credentials'));
+    const user = await User.findOne({ username: { $eq: username } });
+
+    if (user?.password && (await bcrypt.compare(password, user.password))) {
+      return next();
+    }
+
+    return res.status(401).json(boom.unauthorized('Invalid credentials'));
   } catch (error) {
-    return res.status(400) && res.json(boom.badRequest('Something went wrong'));
+    return res.status(400).json(boom.badRequest('User not found'));
   }
 };
 
 /**
  * @description Validate if the user is administrator
  * @param {string} req.body.username - the username to validate
- * @returns {Promise<Boom | NextFunction | Response | unknown>} if the user is admin then next() else return an error
+ * @returns {Promise<MiddlewareUser | NextFunction>} if the user is admin then next() else return an error
  */
 const isAdmin = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Boom | NextFunction | Response | unknown> => {
+): Promise<MiddlewareUser> => {
+  const { username } = req.body;
+
   try {
-    const { username } = req.body;
     const user = await User.findOne({ username: { $eq: username } });
-    return user?.isAdmin ? next() : res.json(boom.unauthorized('Not admin'));
+
+    if (user?.isAdmin) {
+      return next();
+    }
+
+    return res.status(401).json(boom.unauthorized('Not admin'));
   } catch (error) {
-    return res.status(400) && res.json(boom.badRequest('User not found'));
+    return res.status(400).json(boom.badRequest('User not found'));
   }
 };
 
 /**
- * @description Validate the jwt
+ * @description Validate the JWT
  * @param {Authorization} req.headers - Authorization header with the token
  * @returns {Response<Boom | NextFunction>} Authorization error or next
  */
@@ -78,7 +99,7 @@ const validateToken = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Boom | NextFunction | Response | unknown> => {
+): Promise<MiddlewareUser> => {
   const { secret } = Config.jwt;
   try {
     const { authorization } = req.headers;
@@ -88,7 +109,7 @@ const validateToken = async (
       return decoded ? next() : res.json(boom.unauthorized());
     }
   } catch (error) {
-    return res.status(401).json(boom.unauthorized('Invalid token'));
+    return res.status(401).json(boom.unauthorized());
   }
 };
 

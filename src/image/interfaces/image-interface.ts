@@ -20,4 +20,3 @@ export interface ImageTypeResponse extends ImageType {
 }
 
 export type ImageProp = Omit<ImageProps, "save">;
-export type IImage = ImageProp;

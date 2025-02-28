@@ -1,52 +1,66 @@
 // External Modules
 import { Request, Response } from 'express';
+import { LogArgument } from 'rollbar';
 
 // Interal Modules
-import clearTemporaryFiles from '../common/utils/clear';
+import clearTemporaryFiles from 'src/common/utils/clear';
 import ImageService from './image-service';
-import { Query } from '../common/interfaces/types';
+import { Query } from 'src/common/interfaces/types';
+import { rollbar } from 'src/app/config/rollbar';
 
 class ImageController {
   /**
-   * @description Upload a file to cloudinary then saves the url on mongodb
-   * @param { Request } req.body - tag, source, is_nsfw
-   * @param { Request } file.path - path to the file
-   * @returns { Promise<Response> } A success message with a Json response format
+   * @description Uploads a file to Cloudinary and saves the URL in MongoDB
+   * @param { Request } req - The request object containing the file and additional data
+   * @returns { Promise<Response> } A JSON response with a success message
    */
   async uploadFile(req: Request, res: Response): Promise<Response> {
     try {
       const { file } = req;
       const { tag, source, is_nsfw } = req.body;
-      const response = await ImageService.cloudinaryUpload(file?.path);
-      const { public_id, secure_url } = response;
-      ImageService.upload({
+
+      if (!file) {
+        return res.status(400).json({ error: 'File is required' });
+      }
+
+      const uploadResult = await ImageService.cloudinaryUpload(file.path);
+      const { public_id, secure_url } = uploadResult;
+
+      await ImageService.upload({
         source,
         is_nsfw,
         id: public_id,
         url: secure_url,
         tag,
       });
-      clearTemporaryFiles(file?.path ?? 'image/assets/images');
-      return res.json({ url: 'Imagen guardada correctamente' });
+
+      clearTemporaryFiles(file.path ?? 'image/assets/images');
+      return res.json({ message: 'Image saved successfully', url: secure_url });
     } catch (error: unknown) {
-      return res.json({ message: (<Error>error).message });
+      rollbar.error(error as LogArgument);
+      return res
+        .status(500)
+        .json({ error: 'An error occurred while uploading the image' });
     }
   }
 
   /**
    * @description Get a random waifu from the collection!
-   * @param { Response } res object with the waifu
+   * @param { Response } res - object with the waifu
    * @query size - number of items to retrieve
    * @query tag_id - tag to filter
    * @returns { Promise<Response> } An url with the waifu image hosted in cloudinary
    */
   async getRandomImage(req: Request, res: Response): Promise<Response> {
     try {
-      const { size, tag_id } = req.query as unknown as Query;
-      const getImages = await ImageService.getImage(size, tag_id);
-      return res.json(getImages);
-    } catch {
-      return res.json({ message: 'No se pudo encontrar alguna imagen' });
+      const { size, tag_id } = req.query as Query;
+      const images = await ImageService.getImage(size, tag_id);
+      return res.json(images);
+    } catch (error: unknown) {
+      rollbar.error(error as LogArgument);
+      return res
+        .status(500)
+        .json({ error: 'An error occurred while getting the image' });
     }
   }
 
@@ -58,11 +72,12 @@ class ImageController {
    */
   async getImages(req: Request, res: Response): Promise<Response> {
     try {
-      const { tag_id } = req.query as unknown as Query;
+      const { tag_id } = req.query as Query;
       const images = await ImageService.getAllImages(tag_id);
       return res.json(images);
     } catch (error: unknown) {
-      return res.json({ message: (<Error>error).message });
+      rollbar.error(error as LogArgument);
+      return res.json({ error });
     }
   }
 }
