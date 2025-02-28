@@ -53,12 +53,23 @@ const validateUser = async (
   next: NextFunction,
 ): Promise<MiddlewareUser> => {
   try {
-    const { username, password } = req.body as { username: string; password: string };
-    const [sanitizedUsername, sanitizedPassword] = [username.toString(), password.toString()];
+    const { username, password } = req.body as {
+      username: string;
+      password: string;
+    };
+    const [sanitizedUsername, sanitizedPassword] = [
+      username.toString(),
+      password.toString(),
+    ];
 
-    const user = await User.findOne({ $expr: { $eq: ['$username', sanitizedUsername] } });
+    const user = await User.findOne({
+      $expr: { $eq: ['$username', sanitizedUsername] },
+    });
 
-    if (user?.password && (await bcrypt.compare(sanitizedPassword, user.password))) {
+    if (
+      user?.password &&
+      (await bcrypt.compare(sanitizedPassword, user.password))
+    ) {
       return next();
     }
 
@@ -82,7 +93,9 @@ const isAdmin = async (
   const sanitizedUsername = username.toString();
 
   try {
-    const user = await User.findOne({ $expr: { $eq: ['$username', sanitizedUsername] } });
+    const user = await User.findOne({
+      $expr: { $eq: ['$username', sanitizedUsername] },
+    });
 
     if (user?.isAdmin) {
       return next();
@@ -108,10 +121,10 @@ const validateToken = async (
   try {
     const { authorization } = req.headers;
     const token = authorization?.replace('Bearer ', '');
+    if (!token) return res.status(401).json(boom.unauthorized());
     if (secret) {
-      if (!token) return res.json(boom.unauthorized());
       const decoded = jwt.verify(token, secret);
-      return decoded ? next() : res.json(boom.unauthorized());
+      return decoded ? next() : res.status(401).json(boom.unauthorized());
     }
   } catch (error) {
     return res.status(401).json(boom.unauthorized());

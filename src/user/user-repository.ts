@@ -34,7 +34,7 @@ class UserRepository {
    */
   async findUser(id: string): Promise<IUser | null> {
     const sanitizedId = id.toString();
-    return User.findOne({ $expr: { $eq: ["$_id", sanitizedId] } })
+    return User.findOne({ $expr: { $eq: ['$_id', sanitizedId] } });
   }
 
   /**
@@ -43,7 +43,7 @@ class UserRepository {
    */
   async findUserByUsername(username: string): Promise<IUser | null> {
     const sanitizedUsername = username.toString();
-    return User.findOne({ $expr: { $eq: ["$username", sanitizedUsername] } });
+    return User.findOne({ $expr: { $eq: ['$username', sanitizedUsername] } });
   }
 
   /**

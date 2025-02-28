@@ -26,7 +26,7 @@ class ImageRepository {
 
     return Image.create({
       ...image,
-      tag: _idTag ?? image.tag,  // Use validated tag or fallback
+      tag: _idTag ?? image.tag, // Use validated tag or fallback
     });
   }
 
