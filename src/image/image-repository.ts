@@ -15,18 +15,22 @@ class ImageRepository {
    * @return { Promise<ImageProp> } - A new image created
    */
   async create(image: ImageProp): Promise<ImageProp> {
-    const sanitizedTagId = image.tag.toString().trim();
-    if (!Types.ObjectId.isValid(sanitizedTagId)) {
-      rollbar.error('Invalid tag id');
+
+    const sanitizedTagId = image.tag.tag_id?.toString();
+    if (!Types.ObjectId.isValid(image.tag.tag_id)) {
       throw new Error('Invalid tag id');
     }
 
-    const tagExists = await Tag.findOne({ tag_id: sanitizedTagId });
-    const _idTag = tagExists?._id;
+    const tagExists = await Tag.findById({ tag_id: { $eq: sanitizedTagId } });
+
+    if (!tagExists) {
+      rollbar.error('Tag not found');
+      throw new Error('Tag not found');
+    }
 
     return Image.create({
       ...image,
-      tag: _idTag ?? image.tag, // Use validated tag or fallback
+      tag: tagExists._id,
     });
   }
 
