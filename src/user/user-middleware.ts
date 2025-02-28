@@ -55,11 +55,7 @@ const validateUser = async (
     const { username, password } = req.body;
     const user = await User.findOne({ username: { $eq: username } });
 
-    if (
-      user &&
-      user.password &&
-      (await bcrypt.compare(password, user.password))
-    ) {
+    if (user?.password && (await bcrypt.compare(password, user.password))) {
       return next();
     }
 
