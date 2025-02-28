@@ -38,7 +38,9 @@ class ImageController {
       return res.json({ message: 'Image saved successfully', url: secure_url });
     } catch (error: unknown) {
       rollbar.error(error as LogArgument);
-      return res.status(500).json({ error: 'An error occurred while uploading the image' });
+      return res
+        .status(500)
+        .json({ error: 'An error occurred while uploading the image' });
     }
   }
 
@@ -56,7 +58,9 @@ class ImageController {
       return res.json(images);
     } catch (error: unknown) {
       rollbar.error(error as LogArgument);
-      return res.status(500).json({ error: 'An error occurred while getting the image' });
+      return res
+        .status(500)
+        .json({ error: 'An error occurred while getting the image' });
     }
   }
 
