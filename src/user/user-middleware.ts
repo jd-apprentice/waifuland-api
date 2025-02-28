@@ -24,10 +24,11 @@ const userExists = async (
   res: Response,
   next: NextFunction,
 ): Promise<MiddlewareUser> => {
-  const { username } = req.body;
+  const { username } = req.body as { username: string };
+  const sanitizedUsername = username.toString();
 
   try {
-    const user = await User.findOne({ username: { $eq: username } });
+    const user = await User.findOne({ username: { $eq: sanitizedUsername } });
 
     if (user) {
       return res.status(409).json({ error: 'User already exists' });
@@ -52,10 +53,12 @@ const validateUser = async (
   next: NextFunction,
 ): Promise<MiddlewareUser> => {
   try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username: { $eq: username } });
+    const { username, password } = req.body as { username: string; password: string };
+    const [sanitizedUsername, sanitizedPassword] = [username.toString(), password.toString()];
 
-    if (user?.password && (await bcrypt.compare(password, user.password))) {
+    const user = await User.findOne({ $expr: { $eq: ['$username', sanitizedUsername] } });
+
+    if (user?.password && (await bcrypt.compare(sanitizedPassword, user.password))) {
       return next();
     }
 
@@ -75,10 +78,11 @@ const isAdmin = async (
   res: Response,
   next: NextFunction,
 ): Promise<MiddlewareUser> => {
-  const { username } = req.body;
+  const { username } = req.body as { username: string };
+  const sanitizedUsername = username.toString();
 
   try {
-    const user = await User.findOne({ username: { $eq: username } });
+    const user = await User.findOne({ $expr: { $eq: ['$username', sanitizedUsername] } });
 
     if (user?.isAdmin) {
       return next();
@@ -105,7 +109,8 @@ const validateToken = async (
     const { authorization } = req.headers;
     const token = authorization?.replace('Bearer ', '');
     if (secret) {
-      const decoded = jwt.verify(token as string, secret);
+      if (!token) return res.json(boom.unauthorized());
+      const decoded = jwt.verify(token, secret);
       return decoded ? next() : res.json(boom.unauthorized());
     }
   } catch (error) {

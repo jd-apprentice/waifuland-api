@@ -1,8 +1,12 @@
+// External Modules
+import { Types } from 'mongoose';
+
 // Internal Modules
 import Image from './schema/image-schema';
-import Tag from '../tag/schema/tag-schema';
-import { hasTag } from '../common/utils/ref';
+import Tag from 'src/tag/schema/tag-schema';
+import { hasTag } from 'src/common/utils/ref';
 import { ImageProp } from './interfaces/image-interface';
+import { rollbar } from 'src/app/config/rollbar';
 
 class ImageRepository {
   /**
@@ -11,11 +15,18 @@ class ImageRepository {
    * @return { Promise<ImageProp> } - A new image created
    */
   async create(image: ImageProp): Promise<ImageProp> {
-    const tagExists = await Tag.findOne({ tag_id: { $eq: image.tag } });
+    const sanitizedTagId = image.tag.toString().trim();
+    if (!Types.ObjectId.isValid(sanitizedTagId)) {
+      rollbar.error('Invalid tag id');
+      throw new Error('Invalid tag id');
+    }
+
+    const tagExists = await Tag.findOne({ tag_id: sanitizedTagId });
     const _idTag = tagExists?._id;
+
     return Image.create({
       ...image,
-      tag: _idTag ?? image.tag,
+      tag: _idTag ?? image.tag,  // Use validated tag or fallback
     });
   }
 
