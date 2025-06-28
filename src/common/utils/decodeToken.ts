@@ -1,5 +1,5 @@
 // External Modules
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 /**
  * @description Decodes a token
@@ -7,4 +7,4 @@ import jwt_decode from "jwt-decode";
  * @returns { string } Decodes a token
  */
 
-export const decodeToken = (token: string): string => jwt_decode(token);
+export const decodeToken = (token: string): string => jwtDecode(token);
