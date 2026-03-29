@@ -14,3 +14,4 @@ spec:
       targetPort: 4000
   selector:
     io.kompose.service: waifuland-prod
+  type: NodePort
