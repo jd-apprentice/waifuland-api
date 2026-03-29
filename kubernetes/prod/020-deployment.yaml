@@ -24,44 +24,44 @@ spec:
         - env:
             - name: CLOUDINARY_URL
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: CLOUDINARY_URL
-                  name: env
+                  name: waifuland-secrets
             - name: CLOUD_API_KEY
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: CLOUD_API_KEY
-                  name: env
+                  name: waifuland-secrets
             - name: CLOUD_NAME
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: CLOUD_NAME
-                  name: env
+                  name: waifuland-secrets
             - name: CLOUD_SECRET
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: CLOUD_SECRET
-                  name: env
+                  name: waifuland-secrets
             - name: DB_HOST
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: DB_HOST
-                  name: env
+                  name: waifuland-secrets
             - name: ROLLBAR_ENVIRONMENT
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: ROLLBAR_ENVIRONMENT
-                  name: env
+                  name: waifuland-secrets
             - name: ROLLBAR_TOKEN
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: ROLLBAR_TOKEN
-                  name: env
+                  name: waifuland-secrets
             - name: TOKEN
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: TOKEN
-                  name: env
+                  name: waifuland-secrets
           image: dyallo/waifuland_api:X64_latest
           resources:
             limits:
@@ -70,7 +70,7 @@ spec:
             requests:
               cpu: 0.5
               memory: 512Mi
-              ephemeral-storage: "1Gi"
+              ephemeral-storage: '1Gi'
           name: waifuland-prod
           ports:
             - containerPort: 4000
