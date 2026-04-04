@@ -23,7 +23,7 @@ spec:
               protocol: TCP
           envFrom:
             - secretRef:
-                name: dev-waifuland-secrets
+                name: waifuland-secrets
           resources:
             limits:
               memory: 512Mi
