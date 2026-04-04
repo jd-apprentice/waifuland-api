@@ -2,9 +2,9 @@ name: Docker Publish
 
 on:
   push:
-    branches: ["master"]
+    branches: ['master']
     tags:
-      - "v*"
+      - 'v*'
 
 jobs:
   gitleaks:
@@ -14,9 +14,6 @@ jobs:
       name: Gitleaks
     secrets:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
-
-  test:
-    uses: ./.github/workflows/checkout-setup.yml
 
   develop:
     needs: [gitleaks, test]
@@ -29,7 +26,7 @@ jobs:
       overlay_path: overlays/dev
       app_name: waifuland_api
       dockerfile_path: docker/Dockerfile
-      commit_message: "chore: update dev image to dev-${{ github.sha }}"
+      commit_message: 'chore: update dev image to dev-${{ github.sha }}'
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -45,7 +42,7 @@ jobs:
       overlay_path: overlays/prod
       app_name: waifuland_api
       dockerfile_path: docker/Dockerfile
-      commit_message: "chore: update image tag to ${{ github.ref_name }}"
+      commit_message: 'chore: update image tag to ${{ github.ref_name }}'
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
