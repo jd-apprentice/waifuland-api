@@ -23,9 +23,9 @@ jobs:
       environment: dev
       image_tag: dev-${{ github.sha }}
       target_branch: master
-      overlay_path: overlays/dev
+      overlay_path: kubernetes/overlays/dev
       app_name: waifuland_api
-      dockerfile_path: docker/Dockerfile
+      dockerfile_path: infra/docker/Dockerfile
       commit_message: 'chore: update dev image to dev-${{ github.sha }}'
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -39,9 +39,9 @@ jobs:
       environment: prod
       image_tag: ${{ github.ref_name }}
       target_branch: master
-      overlay_path: overlays/prod
+      overlay_path: kubernetes/overlays/prod
       app_name: waifuland_api
-      dockerfile_path: docker/Dockerfile
+      dockerfile_path: infra/docker/Dockerfile
       commit_message: 'chore: update image tag to ${{ github.ref_name }}'
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
