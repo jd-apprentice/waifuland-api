@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: waifuland-api-dev
 
 resources:
-  - ../../base
-  - sealed-secret.yaml
+- ../../base
+- sealed-secret.yaml
 
 namePrefix: dev-
 
@@ -13,9 +13,9 @@ commonLabels:
   environment: dev
 
 replicas:
-  - count: 1
-    name: waifuland-api
+- count: 1
+  name: waifuland-api
 
 images:
-  - name: dyallo/waifuland_api
-    newTag: dev-09375148188c50c8325ce2ad5757d966f668da9b
+- name: dyallo/waifuland_api
+  newTag: dev-ba537642d481fd82f8a7d3e669af987275f55a3a
