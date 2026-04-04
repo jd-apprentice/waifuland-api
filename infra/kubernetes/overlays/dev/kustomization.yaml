@@ -5,9 +5,7 @@ namespace: waifuland-api-dev
 
 resources:
   - ../../base
-
-patches:
-  - path: sealed-secret.yaml
+  - sealed-secret.yaml
 
 namePrefix: dev-
 
