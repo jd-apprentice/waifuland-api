@@ -21,6 +21,9 @@ spec:
           ports:
             - containerPort: 4000
               protocol: TCP
+          envFrom:
+            - secretRef:
+                name: dev-waifuland-secrets
           resources:
             limits:
               memory: 512Mi
