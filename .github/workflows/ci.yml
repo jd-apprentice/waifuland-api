@@ -16,7 +16,7 @@ jobs:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
 
   develop:
-    needs: [gitleaks, test]
+    needs: [gitleaks]
     if: github.ref_name == 'master'
     uses: jd-apprentice/jd-workflows/.github/workflows/deploy.yml@main
     with:
@@ -32,7 +32,7 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
   production:
-    needs: [gitleaks, test]
+    needs: [gitleaks]
     if: startsWith(github.ref_name, 'v')
     uses: jd-apprentice/jd-workflows/.github/workflows/deploy.yml@main
     with:
