@@ -4,15 +4,16 @@ kind: Kustomization
 namespace: waifuland-api
 
 resources:
-- ../../base
+  - ../../base
+  - sealed-secret.yaml
 
 commonLabels:
   environment: prod
 
 replicas:
-- count: 2
-  name: waifuland-api
+  - count: 2
+    name: waifuland-api
 
 images:
-- name: dyallo/waifuland_api
-  newTag: v1.15.2
+  - name: dyallo/waifuland_api
+    newTag: v1.15.2
