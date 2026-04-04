@@ -1,28 +1,10 @@
-name: CI/CD
+name: Docker Publish
 
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - master
-      - development
-    paths:
-      - "src/**"
-      - "Dockerfile"
-      - ".github/workflows/*.yml"
-  pull_request:
-    branches:
-      - master
-      - development
-    paths:
-      - "src/**"
-      - "Dockerfile"
-
-env:
-  BRANCH_NAME: ${{ github.ref_name }}
-  APP_NAME: waifuland_api
-  APP_VERSION: latest
-  APP_DEV_VERSION: unstable
+    branches: ["master"]
+    tags:
+      - "v*"
 
 jobs:
   gitleaks:
@@ -34,92 +16,36 @@ jobs:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
 
   test:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
+    uses: ./.github/workflows/checkout-setup.yml
 
-      ## TODO: Add envs for cloudinary
-      - name: install dependencies and test
-        run: |
-          touch .env
-          echo DB_HOST="${{ secrets.DB_HOST }}" >> .env
-          echo PORT=3000 >> .env
-          echo NODE_ENV=TEST >> .env
-          echo ROLLBAR_TOKEN="${{ secrets.ROLLBAR_TOKEN }}" >> .env
-          echo ROLLBAR_ENVIRONMENT=development >> .env
-          echo TOKEN="${{ secrets.TOKEN }}" >> .env
-          bun install
-          bun test
-
-  dev:
-    runs-on: ubuntu-latest
+  develop:
     needs: [gitleaks, test]
-    if: ${{ github.ref_name == 'development' }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+    if: github.ref_name == 'master'
+    uses: jd-apprentice/jd-workflows/.github/workflows/deploy.yml@main
+    with:
+      environment: dev
+      image_tag: dev-${{ github.sha }}
+      target_branch: master
+      overlay_path: overlays/dev
+      app_name: waifuland_api
+      dockerfile_path: docker/Dockerfile
+      commit_message: "chore: update dev image to dev-${{ github.sha }}"
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build and push - AMD64 - UNSTABLE
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: docker/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:X64_${{ env.APP_DEV_VERSION }}
-          platforms: linux/amd64
-      
-      - name: Build and push - ARM64 - UNSTABLE
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: docker/ARM64.Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:ARM64_${{ env.APP_DEV_VERSION }}
-          platforms: linux/arm64
-
-  prod:
-    runs-on: ubuntu-latest
+  production:
     needs: [gitleaks, test]
-    if: ${{ github.ref_name == 'master' }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build and push - AMD64 - PROD
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: docker/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:X64_${{ env.APP_VERSION }}
-          platforms: linux/amd64
-
-      - name: Build and push - ARM64 - PROD
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: docker/ARM64.Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:ARM64_${{ env.APP_VERSION }}
-          platforms: linux/arm64
+    if: startsWith(github.ref_name, 'v')
+    uses: jd-apprentice/jd-workflows/.github/workflows/deploy.yml@main
+    with:
+      environment: prod
+      image_tag: ${{ github.ref_name }}
+      target_branch: master
+      overlay_path: overlays/prod
+      app_name: waifuland_api
+      dockerfile_path: docker/Dockerfile
+      commit_message: "chore: update image tag to ${{ github.ref_name }}"
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
