@@ -4,7 +4,7 @@ import { Config } from './config/config';
 
 app.listen(Config.app.port || 4000, async () => {
   if (!Config.db.uri) {
-    console.error('Database URI not present');
+    console.error('Database URI is not present');
     process.exit(1);
   }
 
