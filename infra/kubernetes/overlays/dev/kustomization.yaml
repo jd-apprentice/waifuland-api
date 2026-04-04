@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: waifuland-api-dev
 
 resources:
-  - ../../base
+- ../../base
 
 namePrefix: dev-
 
@@ -12,9 +12,9 @@ commonLabels:
   environment: dev
 
 replicas:
-  - name: waifuland-api
-    count: 1
+- count: 1
+  name: waifuland-api
 
 images:
-  - name: dyallo/waifuland_api
-    newTag: dev-placeholder
+- name: dyallo/waifuland_api
+  newTag: dev-94d83c0e5ea9b31950174e858f4dd83cbe849901
