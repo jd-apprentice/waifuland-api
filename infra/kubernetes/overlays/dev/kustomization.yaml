@@ -18,4 +18,4 @@ replicas:
 
 images:
 - name: dyallo/waifuland_api
-  newTag: dev-cd90c0aeb506d45cdd723586e91f929660c7298c
+  newTag: dev-a53644b5221c0ebc5ec3769f52ee163f30ee8fb0
