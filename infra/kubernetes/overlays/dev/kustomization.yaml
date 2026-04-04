@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: waifuland-api-dev
 
 resources:
-- ../../base
-- sealed-secret.yaml
+  - ../../base
+  - sealed-secret.yaml
 
 namePrefix: dev-
 
